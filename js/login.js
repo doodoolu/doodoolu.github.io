@@ -7,7 +7,7 @@ var retry_pw = document.getElementsByClassName('text-center')[1]
 function checkPasswordValid() {
     firebase.database().ref().on('value', snapshot => {
         var snap = snapshot.val()
-        if (snap[email.value] == pw.value) {
+        if (snap[email.value]['Password'] == pw.value) {
             localStorage.setItem('User', email.value);
             window.location.href = './index.html';
 
