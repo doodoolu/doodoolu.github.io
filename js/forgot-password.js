@@ -17,14 +17,14 @@ email_input.addEventListener('keydown', (e) => {
 
 function getEmail() {
     var user_email = forgot_email.value
-    console.log(user_email)
     var user_name = user_email.slice(0, 9)
     if (validateEmail(user_email)) {
         firebase.database().ref().on('value', snapshot => {
                 let snap = snapshot.val()
                 if (snap[user_name] != null) {
                     reset_pw.textContent = ''
-                    sendEmail(user_email, snap[user_name][0])
+                    sendEmail(user_email, snap[user_name]['Password']);
+
 
                 } else {
                     reset_pw.textContent = 'You must be enrolled in PWS 2021 Spring class to retrieve your password!'
@@ -48,16 +48,18 @@ function sendEmail(email, pw) {
         Username: "pwsfinalproject@gmail.com",
         Password: "pwsfinal2021",
         To: email,
-        From: "PWS期末第三組 <pwsfinalproject@gmail.com>",
-        Subject: "Password Resend",
-        Body: pw
+        From: "PWS期末第三組 pwsfinalproject@gmail.com",
+        Subject: "Resend Password",
+        Body: "Here's your password: " + pw
     }).then(function() {
-        reset_pw.textContent = 'Mail sent! Please check your NTU mail inbox!'
-        reset_pw.style.color = 'green'
-        reset_pw.style.fontSize = '0.9rem'
+            reset_pw.textContent = 'Mail sent! Please check your NTU mail inbox!'
+            reset_pw.style.color = 'green'
+            reset_pw.style.fontSize = '0.9rem'
+        }
+        //message => alert(message) 
+    )
+};
 
-    });
-}
 
 
 reset_button.onclick = getEmail
