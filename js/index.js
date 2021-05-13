@@ -1,6 +1,6 @@
 var user = localStorage['User'];
 var user = 'b06703012'
-console.log(user)
+console.log(localStorage['User']);
 const HW_NO = 5
 
 if (user == null) {
@@ -15,6 +15,13 @@ var username_display = document.getElementById('username_display');
 var student_id = document.getElementById('student_id');
 username_display.textContent = user;
 student_id.textContent = user;
+
+
+var logout = document.getElementById('logout');
+logout.onclick = function() {
+    localStorage.removeItem('User');
+    window.location.href = './login.html'
+}
 
 
 function createDoughnutChart(ctx, labels, data) {
@@ -58,7 +65,7 @@ function displayChart(ctx, hw_name) {
             let data = Object.values(snap[hw_name])
             let doughnut = createDoughnutChart(ctx, labels, data)
             document.getElementById('datalabel' + hw_name.slice(-1)).textContent =
-                hw_name + '\nTotal Submit Times:\n' + data.reduce((a, b) => a + b, 0)
+                hw_name + '\nAC Rate:\n' + data[0].toString() + '/' + data.reduce((a, b) => a + b, 0)
             resolve(doughnut)
         })
 
@@ -74,11 +81,11 @@ function updateDoughnutChart(ctx, hw_name, chartx) {
         chartx.data.datasets[0].data = data;
         if (hw_name.slice(0, 3) == 'PWS') {
             document.getElementById('datalabel' + hw_name.slice(-1)).textContent =
-                hw_name + '\nTotal Submit Times:\n' + data.reduce((a, b) => a + b, 0)
+                hw_name + '\nAC Rate:\n' + data[0].toString() + '/' + data.reduce((a, b) => a + b, 0)
 
         } else {
             document.getElementById('datalabel' + hw_name.slice(-3, -2)).textContent =
-                hw_name + '\nTotal Submit Times:\n' + data.reduce((a, b) => a + b, 0)
+                hw_name + '\nAC Rate:\n' + data[0].toString() + '/' + data.reduce((a, b) => a + b, 0)
 
         }
         chartx.update()
@@ -112,13 +119,6 @@ async function initalizeCharts() {
     }
 }
 initalizeCharts()
-
-var logout = document.getElementById('logout');
-logout.onclick = function() {
-    localStorage['User'].remove();
-    window.location.href = './login.html'
-}
-
 
 
 function createMultiChart(ctx, labels, data) {
@@ -198,12 +198,6 @@ function createMultiChart(ctx, labels, data) {
                         display: false,
                         drawBorder: false
                     },
-                    ticks: {
-                        userCallback: function(value, index, values) {
-                            return ('0' + value).slice(-2) + ':00'
-
-                        },
-                    }
 
                 }],
                 yAxes: [{
