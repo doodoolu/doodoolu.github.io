@@ -65,7 +65,7 @@ function displayChart(ctx, hw_name) {
             let data = Object.values(snap[hw_name])
             let doughnut = createDoughnutChart(ctx, labels, data)
             document.getElementById('datalabel' + hw_name.slice(-1)).textContent =
-                hw_name + '\nAC Rate:\n' + data[0].toString() + '/' + data.reduce((a, b) => a + b, 0)
+                hw_name + '\nAccepted Rate:\n' + data[0].toString() + '/' + data.reduce((a, b) => a + b, 0)
             resolve(doughnut)
         })
 
@@ -81,11 +81,11 @@ function updateDoughnutChart(ctx, hw_name, chartx) {
         chartx.data.datasets[0].data = data;
         if (hw_name.slice(0, 3) == 'PWS') {
             document.getElementById('datalabel' + hw_name.slice(-1)).textContent =
-                hw_name + '\nAC Rate:\n' + data[0].toString() + '/' + data.reduce((a, b) => a + b, 0)
+                hw_name + '\nAccepted Rate:\n' + data[0].toString() + '/' + data.reduce((a, b) => a + b, 0)
 
         } else {
             document.getElementById('datalabel' + hw_name.slice(-3, -2)).textContent =
-                hw_name + '\nAC Rate:\n' + data[0].toString() + '/' + data.reduce((a, b) => a + b, 0)
+                hw_name + '\nAccepted Rate:\n' + data[0].toString() + '/' + data.reduce((a, b) => a + b, 0)
 
         }
         chartx.update()
