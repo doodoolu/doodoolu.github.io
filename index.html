@@ -1111,19 +1111,19 @@
     </a>
 
     <!-- Logout Modal-->
-    <div class="modal fade " id="logoutModal " tabindex="-1 " role="dialog " aria-labelledby="exampleModalLabel " aria-hidden="true ">
-        <div class="modal-dialog " role="document ">
-            <div class="modal-content ">
-                <div class="modal-header ">
-                    <h5 class="modal-title " id="exampleModalLabel ">Ready to Leave?</h5>
-                    <button class="close " type="button " data-dismiss="modal " aria-label="Close ">
-                        <span aria-hidden="true ">×</span>
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <div class="modal-body ">Select "Logout " below if you are ready to end your current session.</div>
-                <div class="modal-footer ">
-                    <button class="btn btn-secondary " type="button " data-dismiss="modal ">Cancel</button>
-                    <a id="logout " class="btn btn-primary " href="login.html ">Logout</a>
+                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <a id="logout" class="btn btn-primary" href="login.html">Logout</a>
                 </div>
             </div>
         </div>
@@ -1142,20 +1142,21 @@
     <!-- Page level plugins -->
     <script src="vendor/chart.js/Chart.min.js "></script>
 
-    <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-app.js "></script>
-    <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-database.js "></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js "></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-database.js "></script>
 
 
     <script>
         // Your web app's Firebase configuration
         var firebaseConfig = {
-            apiKey: "AIzaSyBVr4p-xd721vaZ2rm_iCP9W0MMG0LyXzY ",
-            authDomain: "pws-final-project-data-total.firebaseapp.com ",
-            databaseURL: "https://pws-final-project-data-total-default-rtdb.firebaseio.com ",
-            projectId: "pws-final-project-data-total ",
-            storageBucket: "pws-final-project-data-total.appspot.com ",
-            messagingSenderId: "493079456243 ",
-            appId: "1:493079456243:web:e19d9eb7be34e5b3e10a86 "
+            apiKey: "AIzaSyBVr4p-xd721vaZ2rm_iCP9W0MMG0LyXzY",
+            authDomain: "pws-final-project-data-total.firebaseapp.com",
+            databaseURL: "https://pws-final-project-data-total-default-rtdb.firebaseio.com",
+            projectId: "pws-final-project-data-total",
+            storageBucket: "pws-final-project-data-total.appspot.com",
+            messagingSenderId: "493079456243",
+            appId: "1:493079456243:web:e19d9eb7be34e5b3e10a86"
+
         };
         // Initialize Firebase
         var submit_db = firebase.initializeApp(firebaseConfig, 'Submit');
@@ -1163,30 +1164,34 @@
     <script>
         // Your web app's Firebase configuration 
         var firebaseConfig2 = {
-            apiKey: "AIzaSyAT3N0zoCF02SY3ookmDQ668BS7L1rWH5c ",
-            authDomain: "data-total-time.firebaseapp.com ",
-            databaseURL: "https://data-total-time-default-rtdb.firebaseio.com ",
-            projectId: "data-total-time ",
-            storageBucket: "data-total-time.appspot.com ",
-            messagingSenderId: "984790106244 ",
-            appId: "1:984790106244:web:3931286ab6cff872a702d1 "
-        }; // Initialize Firebase 
+            apiKey: "AIzaSyAT3N0zoCF02SY3ookmDQ668BS7L1rWH5c",
+            authDomain: "data-total-time.firebaseapp.com",
+            databaseURL: "https://data-total-time-default-rtdb.firebaseio.com",
+            projectId: "data-total-time",
+            storageBucket: "data-total-time.appspot.com",
+            messagingSenderId: "984790106244",
+            appId: "1:984790106244:web:b6260ddcd8a32dfaa702d1"
+        };
+
         var time_db = firebase.initializeApp(firebaseConfig2, 'Time');
     </script>
     <script>
         // Your web app's Firebase configuration
         var firebaseConfig3 = {
-            apiKey: "AIzaSyBUwix6qqCKgnB-hgkjX1VyCrCBrqYdTik ",
-            authDomain: "pws-final-project-chart.firebaseapp.com ",
-            databaseURL: "https://pws-final-project-chart-default-rtdb.firebaseio.com ",
-            projectId: "pws-final-project-chart ",
-            storageBucket: "pws-final-project-chart.appspot.com ",
-            messagingSenderId: "251103274579 ",
-            appId: "1:251103274579:web:4a4c0af91d17f37718c8a6 "
+            apiKey: "AIzaSyBUwix6qqCKgnB-hgkjX1VyCrCBrqYdTik",
+            authDomain: "pws-final-project-chart.firebaseapp.com",
+            databaseURL: "https://pws-final-project-chart-default-rtdb.firebaseio.com",
+            projectId: "pws-final-project-chart",
+            storageBucket: "pws-final-project-chart.appspot.com",
+            messagingSenderId: "251103274579",
+            appId: "1:251103274579:web:2dc9421cb4ba5bac18c8a6"
+
         };
         // Initialize Firebase
         var rankings_db = firebase.initializeApp(firebaseConfig3, 'Rankings');
     </script>
+
+
     <script src="js/index.js "></script>
 
 </body>
