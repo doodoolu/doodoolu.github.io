@@ -341,3 +341,67 @@ async function initializeProgressBar() {
 
 }
 initializeProgressBar();
+
+function initalizeRadarChart() {
+    let ctx = document.getElementById('radar');
+    let labels = ['1', '2', '3', '4', '5'];
+    let data = ['44', '66', '23', '97', '50']
+    var radar = new Chart(ctx, {
+        type: 'radar',
+
+        data: {
+            labels: labels,
+            datasets: [{
+                    lineTension: 0.3,
+                    backgroundColor: "rgba(78, 115, 223, 0.05)",
+                    borderColor: "rgba(78, 115, 223, 1)",
+                    pointRadius: 3,
+                    pointBackgroundColor: "rgba(78, 115, 223, 1)",
+                    pointBorderColor: "rgba(78, 115, 223, 1)",
+                    data: data
+                },
+
+            ],
+        },
+        options: {
+            scale: {
+                ticks: {
+                    beginAtZero: true,
+                }
+            },
+            maintainAspectRatio: false,
+            layout: {
+                padding: {
+                    left: 10,
+                    right: 25,
+                    top: 25,
+                    bottom: 0
+                }
+            },
+
+            tooltips: {
+                backgroundColor: "rgb(255,255,255)",
+                bodyFontColor: "#858796",
+                titleMarginBottom: 10,
+                titleFontColor: '#6e707e',
+                titleFontSize: 14,
+                borderColor: '#dddfeb',
+                borderWidth: 1,
+                xPadding: 15,
+                yPadding: 15,
+                displayColors: false,
+                intersect: false,
+                mode: 'index',
+                caretPadding: 10,
+                callbacks: {
+                    title: (tooltipItem, data) => data.labels[tooltipItem[0].index]
+                }
+
+            },
+
+        }
+
+    });
+    return radar;
+}
+initalizeRadarChart();
