@@ -884,19 +884,21 @@
                                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                                     <h6 class="m-0 font-weight-bold text-primary">各作業完成比例</h6>
                                     <div class="dropdown no-arrow">
-                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                                        <button class="btn btn-secondary dropdown-toggle" type="button" id="percent_button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            所有題目
+                                        </button>
+                                        <div id='progress_dropdown' class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
                                             <div class="dropdown-header">作業選項:</div>
 
+                                            <button class="dropdown-item">所有題目</button>
+                                            <div class="dropdown-divider"></div>
+                                            <button class="dropdown-item">HW 1</button>
+                                            <button class="dropdown-item">HW 2</button>
+                                            <button class="dropdown-item">HW 3</button>
+                                            <button class="dropdown-item">HW 4</button>
+                                            <button class="dropdown-item">HW 5</button>
+                                            <button class="dropdown-item">HW 6</button>
 
-                                            <a class="dropdown-item">HW1</a>
-                                            <a class="dropdown-item">HW2</a>
-                                            <a class="dropdown-item">HW3</a>
-                                            <a class="dropdown-item">HW4</a>
-                                            <a class="dropdown-item">HW5</a>
-                                            <a class="dropdown-item">HW6</a>
 
                                         </div>
                                     </div>
@@ -904,27 +906,32 @@
 
 
 
-                                <div class="card-body">
-                                    <h4 class="small font-weight-bold">Problem 1 <span class="float-right">20%</span></h4>
+                                <div id='hw_percentage' class="card-body">
+                                    <h4 class="small font-weight-bold">Problem 1 <span class="float-right">0%</span></h4>
                                     <div class="progress mb-4">
-                                        <div class="progress-bar bg-danger" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                                        <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
-                                    <h4 class="small font-weight-bold">Problem 2 <span class="float-right">40%</span></h4>
+                                    <h4 class="small font-weight-bold">Problem 2 <span class="float-right">0%</span></h4>
                                     <div class="progress mb-4">
-                                        <div class="progress-bar bg-warning" role="progressbar" style="width: 40%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+                                        <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
-                                    <h4 class="small font-weight-bold">Problem 3 <span class="float-right">60%</span></h4>
+                                    <h4 class="small font-weight-bold">Problem 3 <span class="float-right">0%</span></h4>
                                     <div class="progress mb-4">
-                                        <div class="progress-bar" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                                        <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
-                                    <h4 class="small font-weight-bold">Problem 4 <span class="float-right">80%</span></h4>
+                                    <h4 class="small font-weight-bold">Problem 4 <span class="float-right">0%</span></h4>
                                     <div class="progress mb-4">
-                                        <div class="progress-bar bg-info" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+                                        <div class="progress-bar bg-info" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
-                                    <h4 class="small font-weight-bold">Problem 5 <span class="float-right">Complete!</span></h4>
+                                    <h4 class="small font-weight-bold">Problem 5 <span class="float-right">0%</span></h4>
+                                    <div class="progress mb-4">
+                                        <div class="progress-bar bg-success" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                    <h4 class="small font-weight-bold">Problem 6 <span class="float-right">0%</span></h4>
                                     <div class="progress">
-                                        <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                                        <div class="progress-bar bg-light" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
+
                                 </div>
                             </div>
 
@@ -1171,7 +1178,20 @@
         }; // Initialize Firebase 
         var time_db = firebase.initializeApp(firebaseConfig2, 'Time');
     </script>
-
+    <script>
+        // Your web app's Firebase configuration
+        var firebaseConfig3 = {
+            apiKey: "AIzaSyBUwix6qqCKgnB-hgkjX1VyCrCBrqYdTik",
+            authDomain: "pws-final-project-chart.firebaseapp.com",
+            databaseURL: "https://pws-final-project-chart-default-rtdb.firebaseio.com",
+            projectId: "pws-final-project-chart",
+            storageBucket: "pws-final-project-chart.appspot.com",
+            messagingSenderId: "251103274579",
+            appId: "1:251103274579:web:4a4c0af91d17f37718c8a6"
+        };
+        // Initialize Firebase
+        var rankings_db = firebase.initializeApp(firebaseConfig3, 'Rankings');
+    </script>
     <script src="js/index.js"></script>
 
 </body>
