@@ -1,10 +1,10 @@
 var user = localStorage['User'];
-var user = 'b06302352'
+//var user = 'b06703012'
 console.log(localStorage['User']);
 const HW_NO = 5
 
 if (user == null) {
-    //window.location.href = './login.html';
+    window.location.href = './login.html';
 
 } else {
     var body = document.getElementsByTagName('body')[0];
@@ -342,13 +342,9 @@ async function initializeProgressBar() {
 }
 initializeProgressBar();
 
-function initalizeRadarChart() {
-    let ctx = document.getElementById('radar');
-    let labels = ['1', '2', '3', '4', '5'];
-    let data = ['100', '100', '50', '100', '100']
+function createRadarChart(ctx, labels, data) {
     var radar = new Chart(ctx, {
         type: 'radar',
-
         data: {
             labels: labels,
             datasets: [{
@@ -370,21 +366,30 @@ function initalizeRadarChart() {
             scale: {
                 ticks: {
                     beginAtZero: true,
+                    max: 1
                 },
                 gridLines: {
-                    color: ['black', 'red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'black', 'red', 'orange', 'yellow', 'green', 'blue', 'indigo']
+                    //color: ['black', 'red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'black', 'red', 'orange', 'yellow', 'green', 'blue', 'indigo']
+                },
+
+                pointLabels: {
+                    fontSize: 24
                 }
+
             },
+
             maintainAspectRatio: false,
             layout: {
                 padding: {
                     left: 10,
                     right: 25,
-                    top: 25,
+                    top: 10,
                     bottom: 0
                 }
             },
-
+            legend: {
+                display: false
+            },
             tooltips: {
                 backgroundColor: "rgb(255,255,255)",
                 bodyFontColor: "#858796",
@@ -409,5 +414,66 @@ function initalizeRadarChart() {
 
     });
     return radar;
+
 }
-initalizeRadarChart();
+
+function initalizeRadarChart() {
+    let ctx = document.getElementById('radar');
+    return new Promise((resolve, reject) => {
+
+        radar_db.database().ref().on('value', snapshot => {
+            let snap = snapshot.val()
+            let user_info = snap[user]
+            let labels = Object.keys(user_info)
+            let data = Object.values(user_info)
+            data = data.map(currentValue => (1 - parseFloat(currentValue)).toString())
+            createRadarChart(ctx, labels, data)
+            resolve(data.reduce((a, b) => parseFloat(a) + parseFloat(b), 0))
+        })
+    })
+}
+
+async function displayRank() {
+    let total_score = await initalizeRadarChart();
+    let img = document.getElementById('rank_image');
+    let description = document.getElementById('rank_description');
+    let header = document.getElementById('rank_header');
+
+    if (total_score >= 4) {
+        img.setAttribute('src', './img/dynamax_charizard.png')
+        header.textContent = '你是...\n超極巨化噴火龍！'
+        description.textContent = '你超強的啦，怎麼會來上這種課勒，不要一直電好不好'
+
+    } else if (total_score >= 3) {
+        img.setAttribute('src', './img/mega_charizard.png')
+        header.textContent = '你是...\nMega噴火龍！'
+        description.textContent = '你很強欸，怎麼會來上這種課勒，不要一直電好不好'
+
+
+
+    } else if (total_score >= 2) {
+        img.setAttribute('src', './img/charizard.png')
+        header.textContent = '你是...噴火龍！'
+        description.textContent = '你有點強欸，怎麼會來上這種課勒，不要一直電好不好'
+
+
+
+    } else if (total_score >= 1) {
+        img.setAttribute('src', './img/charmeleon.png')
+        header.textContent = '你是...火恐龍！'
+        description.textContent = '你不錯欸，怎麼會來上這種課勒，不要一直電好不好'
+
+
+
+    } else if (total_score < 1) {
+        img.setAttribute('src', './img/charmander.png')
+        header.textContent = '你是...小火龍！'
+        description.textContent = '無話可說'
+
+
+
+    }
+    console.log(total_score)
+
+}
+displayRank()
