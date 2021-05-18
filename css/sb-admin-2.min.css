@@ -11218,6 +11218,7 @@ border-left-primary {
 }
 
 .bg-password-image {
+<<<<<<< Updated upstream
     /* https://source.unsplash.com/oWTW-jNGl9I/600x800 */
     background: url("../img/jingguolin.jpg");
     /* background-position: center; */
@@ -11226,6 +11227,12 @@ border-left-primary {
     top: 10px;
     width: 400px;
     height: 500px;
+=======
+    background: url("../img/lin.jpg");
+    background-position: center;
+    background-size: cover;
+    height: 600px;
+>>>>>>> Stashed changes
 }
 
 form.user .custom-checkbox.small label {
