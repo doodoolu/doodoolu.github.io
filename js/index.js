@@ -38,6 +38,8 @@ function createDoughnutChart(ctx, labels, data) {
         },
         options: {
             maintainAspectRatio: false,
+            responsive: true,
+            cutout: 0,
             tooltips: {
                 backgroundColor: "rgb(255,255,255)",
                 bodyFontColor: "#858796",
@@ -132,7 +134,7 @@ function createMultiChart(ctx, labels, data) {
                     type: 'line',
                     yAxisID: 'B',
                     fill: false,
-                    lineTension: 0.3,
+                    lineTension: 0,
                     backgroundColor: "rgba(78, 115, 223, 0.05)",
                     borderColor: "rgba(78, 115, 223, 1)",
                     pointRadius: 3,
@@ -147,8 +149,7 @@ function createMultiChart(ctx, labels, data) {
                 },
                 {
                     label: 'AC_Times',
-                    barPercentage: 0.4,
-                    lineTension: 0.3,
+                    barPercentage: 0.8,
                     yAxisID: 'A',
                     backgroundColor: 'brown',
                     borderColor: "rgba(78, 115, 223, 1)",
@@ -164,8 +165,7 @@ function createMultiChart(ctx, labels, data) {
                 },
                 {
                     label: 'WA_Times',
-                    barPercentage: 0.4,
-                    lineTension: 0.3,
+                    barPercentage: 0.8,
                     yAxisID: 'A',
                     backgroundColor: 'gold',
                     borderColor: "rgba(78, 115, 223, 1)",
@@ -349,9 +349,9 @@ function createRadarChart(ctx, labels, data) {
             labels: labels,
             datasets: [{
                     lineTension: 0,
-                    backgroundColor: "rgba(78, 115, 223, 0.05)",
+                    backgroundColor: "rgba(78, 115, 223, 0.2)",
                     borderColor: "rgba(78, 115, 223, 1)",
-                    pointRadius: 3,
+                    pointRadius: 5,
                     pointBackgroundColor: "rgba(78, 115, 223, 1)",
                     pointBorderColor: "rgba(78, 115, 223, 1)",
                     pointHoverRadius: 3,
@@ -424,9 +424,10 @@ function initalizeRadarChart() {
         radar_db.database().ref().on('value', snapshot => {
             let snap = snapshot.val()
             let user_info = snap[user]
-            let labels = Object.keys(user_info)
+            let labels = ['精確度', '難題大師', '完成度', '細心度', '效率']
             let data = Object.values(user_info)
             data = data.map(currentValue => (1 - parseFloat(currentValue)).toString())
+            console.log(labels)
             createRadarChart(ctx, labels, data)
             resolve(data.reduce((a, b) => parseFloat(a) + parseFloat(b), 0))
         })
