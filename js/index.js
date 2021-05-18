@@ -12,9 +12,7 @@ if (user == null) {
 }
 
 var username_display = document.getElementById('username_display');
-var student_id = document.getElementById('student_id');
 username_display.textContent = user;
-student_id.textContent = user;
 
 
 var logout = document.getElementById('logout');
@@ -23,6 +21,27 @@ logout.onclick = function() {
     window.location.href = './login.html'
 }
 
+function initializeBoxes() {
+    let student_id = document.getElementById('student_id');
+    let submit_box = document.getElementById('submit_box');
+    let ac_times_box = document.getElementById('ac_times_box');
+    let try_times_box = document.getElementById('try_times_box');
+    let ac_time_bar = document.getElementById('ac_times_bar');
+
+
+    page_db.database().ref().on('value', snapshot => {
+        let snap = snapshot.val();
+        let user_info = snap[user];
+        student_id.textContent = user;
+
+        submit_box.textContent = user_info['total_submission'] + '次';
+        ac_times_box.textContent = user_info['total_AC_count'] + '題';
+        let finish_percent = ((parseFloat(user_info['total_AC_count']) / 30).toFixed(2) * 100).toString() + '%';
+        ac_time_bar.style.width = finish_percent;
+        ac_time_bar.textContent = finish_percent;
+    })
+}
+initializeBoxes();
 
 function createDoughnutChart(ctx, labels, data) {
     var submit_chart = new Chart(ctx, {
@@ -34,6 +53,7 @@ function createDoughnutChart(ctx, labels, data) {
                 backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc', 'red', 'gold', 'DodgerBlue', 'Navy'],
                 //hoverBackgroundColor: ['#2e59d9', '#17a673', '#2c9faf'],
                 hoverBorderColor: "rgba(234, 236, 244, 1)",
+
             }],
         },
         options: {
@@ -53,7 +73,7 @@ function createDoughnutChart(ctx, labels, data) {
             legend: {
                 display: false
             },
-            cutoutPercentage: 80,
+            cutoutPercentage: 70,
         },
     });
     return submit_chart
@@ -198,6 +218,10 @@ function createMultiChart(ctx, labels, data) {
                         display: false,
                         drawBorder: false
                     },
+                    scaleLabel: {
+                        display: true,
+                        labelString: '時間'
+                    }
 
                 }],
                 yAxes: [{
@@ -208,6 +232,12 @@ function createMultiChart(ctx, labels, data) {
                     gridLines: {
                         display: false,
                     },
+                    scaleLabel: {
+                        display: true,
+                        labelString: '提交次數',
+                        rotation: 0,
+                    }
+
 
                 }, {
                     id: 'B',
@@ -216,6 +246,10 @@ function createMultiChart(ctx, labels, data) {
 
                     gridLines: {
                         display: false,
+                    },
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'AC率',
                     }
 
                 }],
@@ -244,103 +278,41 @@ function createMultiChart(ctx, labels, data) {
     return multi;
 
 }
-var multiChart = document.getElementById('multiChart');
-time_db.database().ref().on('value', snapshot => {
-    let snap = snapshot.val()
-    let ac_rate = Object.values(snap['AC Rate'])
-    ac_rate = ac_rate.map(function(e) {
-        return e.toFixed(4)
-    })
-    let ac = Object.values(snap['Accepted'])
-    let wa = Object.values(snap['Wrong Answer'])
-    let labels = Object.keys(snap['Accepted'])
-    labels = labels.map(function(e) {
-        return ('0' + e).slice(-2) + ':00'
-    })
-    createMultiChart(multiChart, labels, [ac_rate, ac, wa])
-})
 
-function getPercentData() {
-    return new Promise((resolve, reject) => {
-        rankings_db.database().ref().on('value', snapshot => {
-            let snap = snapshot.val();
-            resolve(snap[user]);
+function initializeMultiChart() {
+    var multiChart = document.getElementById('multiChart');
+    time_db.database().ref().on('value', snapshot => {
+        let snap = snapshot.val()
+        let ac_rate = Object.values(snap['AC Rate'])
+        ac_rate = ac_rate.map(function(e) {
+            return e.toFixed(4)
         })
+        let ac = Object.values(snap['Accepted'])
+        let wa = Object.values(snap['Wrong Answer'])
+        let labels = Object.keys(snap['Accepted'])
+        labels = labels.map(function(e) {
+            return ('0' + e).slice(-2) + ':00'
+        })
+        let chart = createMultiChart(multiChart, labels, [ac_rate, ac, wa])
+
     })
-}
-async function initializeProgressBar() {
-    let percentage_chart = document.getElementById('hw_percentage')
-    let progress_bar = percentage_chart.querySelectorAll('[role="progressbar"]');
-    let progress_percentage = percentage_chart.getElementsByTagName('span');
-    let hw_name = percentage_chart.getElementsByTagName('h4');
 
-    let progress_dropdown = document.getElementById('progress_dropdown').getElementsByTagName('button');
-    let dropdown_button_name = document.getElementById('percent_button');
-    let user_percent = await getPercentData();
-    let bar_6_exist = true;
+    // var myBarExtend = Chart.controllers.bar.prototype.draw;
 
-    for (let i = 0; i < 5; i++) {
-        progress_bar[i].style.width = user_percent['HW' + (i + 1).toString() + ' Total Score'].toString() + '%';
-        progress_percentage[i].textContent = user_percent['HW' + (i + 1).toString() + ' Total Score'].toString() + '%'
-        hw_name[i].childNodes[0].textContent = 'HW' + (i + 1).toString();
-
-    }
-    for (let i = 0; i < progress_dropdown.length; i++) {
-        if (i == 0) {
-            progress_dropdown[i].onclick = function() {
-                if (!bar_6_exist) {
-                    let h4 = document.createElement('h4');
-                    h4.classList.add('small', 'font-weight-bold');
-                    h4.textContent = 'HW6';
-                    let span = document.createElement('span');
-                    span.classList.add('float-right');
-                    span.textContent = 'XXX%'
-                    h4.appendChild(span);
-                    let div = document.createElement('div');
-                    div.classList.add('progress');
-                    let childDiv = document.createElement('div');
-                    childDiv.setAttribute('role', 'progressbar');
-                    childDiv.classList.add('progress-bar', 'bg-success');
-                    div.appendChild(childDiv);
-                    progress_bar[4].parentNode.parentNode.appendChild(h4);
-                    progress_bar[4].parentNode.parentNode.appendChild(div);
-                    progress_bar[4].parentNode.classList.add('mb-4');
-                    bar_6_exist = true;
-                }
-                for (let j = 0; j < HW_NO; j++) {
-                    progress_bar = percentage_chart.querySelectorAll('[role="progressbar"]');
-                    progress_bar[j].style.width = user_percent['HW' + (j + 1).toString() + ' Total Score'].toString() + '%';
-                    progress_percentage[j].textContent = user_percent['HW' + (j + 1).toString() + ' Total Score'].toString() + '%'
-                    dropdown_button_name.textContent = '所有題目';
-                    hw_name[j].childNodes[0].textContent = 'HW' + (j + 1).toString();
-
-                }
-            }
-
-        } else {
-            progress_dropdown[i].onclick = function() {
-                if (bar_6_exist) {
-                    let bars = percentage_chart.querySelectorAll('[role="progressbar"]');
-                    let bar_6_name = percentage_chart.getElementsByTagName('h4')[5];
-                    bars[5].parentNode.parentNode.removeChild(bars[5].parentNode);
-                    bars[4].parentNode.classList.remove('mb-4');
-                    bar_6_name.parentNode.removeChild(bar_6_name)
-                    bar_6_exist = false;
-                }
-                for (let j = 0; j < 5; j++) {
-                    progress_bar[j].style.width = (user_percent['HW' + (i).toString() + '-' + (j + 1).toString()] * 5).toString() + '%';
-                    progress_percentage[j].textContent = user_percent['HW' + (i).toString() + '-' + (j + 1).toString()].toString() + '%'
-                    dropdown_button_name.textContent = 'HW ' + i.toString();
-                    hw_name[j].childNodes[0].textContent = 'Problem ' + i.toString() + '-' + (j + 1).toString();
-
-                }
-            }
-
-        }
-    }
+    // Chart.helpers.extend(Chart.controllers.bar.prototype, {
+    //     draw: function() {
+    //         myBarExtend.apply(this, arguments);
+    //         var xOffset = 15;
+    //         var yOffset = 10
+    //         multiChart.getContext('2d').fillStyle = "gray";
+    //         multiChart.getContext('2d').fillText('人數', xOffset, yOffset);
+    //     }
+    // });
 
 }
-initializeProgressBar();
+initializeMultiChart()
+
+
 
 function createRadarChart(ctx, labels, data) {
     var radar = new Chart(ctx, {
@@ -366,7 +338,7 @@ function createRadarChart(ctx, labels, data) {
             scale: {
                 ticks: {
                     beginAtZero: true,
-                    max: 1
+                    max: 100
                 },
                 gridLines: {
                     //color: ['black', 'red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'black', 'red', 'orange', 'yellow', 'green', 'blue', 'indigo']
@@ -390,6 +362,7 @@ function createRadarChart(ctx, labels, data) {
             legend: {
                 display: false
             },
+
             tooltips: {
                 backgroundColor: "rgb(255,255,255)",
                 bodyFontColor: "#858796",
@@ -405,7 +378,10 @@ function createRadarChart(ctx, labels, data) {
                 mode: 'index',
                 caretPadding: 10,
                 callbacks: {
-                    title: (tooltipItem, data) => data.labels[tooltipItem[0].index]
+                    title: (tooltipItem, data) => data.labels[tooltipItem[0].index],
+                    label: function(context) {
+                        return context.value + '分';
+                    }
                 }
 
             },
@@ -426,8 +402,7 @@ function initalizeRadarChart() {
             let user_info = snap[user]
             let labels = ['精確度', '難題大師', '完成度', '細心度', '效率']
             let data = Object.values(user_info)
-            data = data.map(currentValue => (1 - parseFloat(currentValue)).toString())
-            console.log(labels)
+            data = data.map(currentValue => ((1 - parseFloat(currentValue)).toFixed(4) * 100).toString())
             createRadarChart(ctx, labels, data)
             resolve(data.reduce((a, b) => parseFloat(a) + parseFloat(b), 0))
         })

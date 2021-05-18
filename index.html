@@ -376,7 +376,7 @@
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                                 繳交次數 </div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">繳交次數</div>
+                                            <div id='submit_box' class="h5 mb-0 font-weight-bold text-gray-800"></div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -396,11 +396,11 @@
                                             </div>
                                             <div class="row no-gutters align-items-center">
                                                 <div class="col-auto">
-                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">NUMBER</div>
+                                                    <div id='ac_times_box' class="h5 mb-0 mr-3 font-weight-bold text-gray-800"></div>
                                                 </div>
                                                 <div class="col">
-                                                    <div class="progress progress-sm mr-2">
-                                                        <div class="progress-bar bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                                    <div class="progress progress-sm mr-2" style="height: 15px; ">
+                                                        <div id='ac_times_bar' style='color: rgb(255, 255, 255);' class="progress-bar bg-info" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -421,7 +421,7 @@
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                                                 努力次數排名</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">number</div>
+                                            <div id='try_times_box' class="h5 mb-0 font-weight-bold text-gray-800">number</div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-comments fa-2x text-gray-300"></i>
@@ -496,25 +496,25 @@
 
 
                                 <div class="card-body">
-                                    <h4 class="small font-weight-bold">作業1 <span class="float-right">20%</span></h4>
+                                    <h4 class="small font-weight-bold">作業1 <span class="float-right">68.75%</span></h4>
                                     <div class="progress mb-4">
-                                        <div class="progress-bar bg-danger" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="120"></div>
+                                        <div class="progress-bar bg-danger" role="progressbar" style="width: 68.75%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="120"></div>
                                     </div>
-                                    <h4 class="small font-weight-bold">作業2 <span class="float-right">40%</span></h4>
+                                    <h4 class="small font-weight-bold">作業2 <span class="float-right">97.30%</span></h4>
                                     <div class="progress mb-4">
-                                        <div class="progress-bar bg-warning" role="progressbar" style="width: 40%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="120"></div>
+                                        <div class="progress-bar bg-warning" role="progressbar" style="width: 97.3%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="120"></div>
                                     </div>
-                                    <h4 class="small font-weight-bold">作業3 <span class="float-right">60%</span></h4>
+                                    <h4 class="small font-weight-bold">作業3 <span class="float-right">43.06%</span></h4>
                                     <div class="progress mb-4">
-                                        <div class="progress-bar" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="120"></div>
+                                        <div class="progress-bar" role="progressbar" style="width: 43.06%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="120"></div>
                                     </div>
-                                    <h4 class="small font-weight-bold">作業4 <span class="float-right">80%</span></h4>
+                                    <h4 class="small font-weight-bold">作業4 <span class="float-right">10.93%</span></h4>
                                     <div class="progress mb-4">
-                                        <div class="progress-bar bg-info" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="120"></div>
+                                        <div class="progress-bar bg-info" role="progressbar" style="width: 10.93%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="120"></div>
                                     </div>
-                                    <h4 class="small font-weight-bold">作業5 <span class="float-right">100%</span></h4>
+                                    <h4 class="small font-weight-bold">作業5 <span class="float-right">48.33%</span></h4>
                                     <div class="progress mb-4">
-                                        <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="120"></div>
+                                        <div class="progress-bar bg-success" role="progressbar" style="width: 48.33%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="120"></div>
                                     </div>
                                     <h4 class="small font-weight-bold">作業6 <span class="float-right">Complete!</span></h4>
                                     <div class="progress mb-4">
@@ -1194,21 +1194,7 @@
 
         var time_db = firebase.initializeApp(firebaseConfig2, 'Time');
     </script>
-    <script>
-        // Your web app's Firebase configuration
-        var firebaseConfig3 = {
-            apiKey: "AIzaSyBUwix6qqCKgnB-hgkjX1VyCrCBrqYdTik",
-            authDomain: "pws-final-project-chart.firebaseapp.com",
-            databaseURL: "https://pws-final-project-chart-default-rtdb.firebaseio.com",
-            projectId: "pws-final-project-chart",
-            storageBucket: "pws-final-project-chart.appspot.com",
-            messagingSenderId: "251103274579",
-            appId: "1:251103274579:web:2dc9421cb4ba5bac18c8a6"
 
-        };
-        // Initialize Firebase
-        var rankings_db = firebase.initializeApp(firebaseConfig3, 'Rankings');
-    </script>
     <script>
         // Your web app's Firebase configuration
         var firebaseConfig4 = {
@@ -1223,6 +1209,22 @@
         // Initialize Firebase
         var radar_db = firebase.initializeApp(firebaseConfig4, 'Radar');
     </script>
+
+    <script>
+        // Your web app's Firebase configuration
+        var firebaseConfig5 = {
+            apiKey: "AIzaSyDWbADBm5aewJO98BLx4c54COL5ZlqbStk",
+            authDomain: "data-personal-page.firebaseapp.com",
+            databaseURL: "https://data-personal-page-default-rtdb.firebaseio.com",
+            projectId: "data-personal-page",
+            storageBucket: "data-personal-page.appspot.com",
+            messagingSenderId: "421559772073",
+            appId: "1:421559772073:web:4c3bdaab517fa5a47cdab8"
+        };
+        // Initialize Firebase
+        var page_db = firebase.initializeApp(firebaseConfig5, 'Page');
+    </script>
+
 
     <script src="js/index.js "></script>
 
