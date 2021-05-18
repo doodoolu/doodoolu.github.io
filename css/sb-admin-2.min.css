@@ -11206,21 +11206,26 @@ border-left-primary {
 }
 
 .bg-login-image {
-    background: url("https://scontent.ftpe5-1.fna.fbcdn.net/v/t1.18169-9/1470166_549883638423267_988655682_n.jpg?_nc_cat=106&ccb=1-3&_nc_sid=8bfeb9&_nc_ohc=MM_N0On0X3kAX8qzF2O&_nc_ht=scontent.ftpe5-1.fna&oh=6d00ec63d5f634ddac6f5fcbedb101d5&oe=60C450C4");
+    background: url("../img/jingguolin.jpg");
     background-position: center;
     background-size: cover;
 }
 
 .bg-register-image {
-    background: url("https://source.unsplash.com/Mv9hjnEUHR4/600x800");
+    background: url("../img/jingguolin.jpg");
     background-position: center;
     background-size: cover;
 }
 
 .bg-password-image {
-    background: url("https://source.unsplash.com/oWTW-jNGl9I/600x800");
-    background-position: center;
+    /* https://source.unsplash.com/oWTW-jNGl9I/600x800 */
+    background: url("../img/jingguolin.jpg");
+    /* background-position: center; */
     background-size: cover;
+    position: relative;
+    top: 10px;
+    width: 400px;
+    height: 500px;
 }
 
 form.user .custom-checkbox.small label {
