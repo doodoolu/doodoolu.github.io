@@ -418,33 +418,50 @@ async function displayRank() {
         header.textContent = '你是...\n超極巨化噴火龍！'
         description.textContent = '你超強的啦，怎麼會來上這種課勒，不要一直電好不好'
 
+        if (/Android|webOS|iPhone|iPad/i.test(navigator.userAgent)) {
+            header.style.fontSize = '3rem';
+            description.style.fontSize = '1.5rem';
+        }
+
     } else if (total_score >= 3) {
         img.setAttribute('src', './img/mega_charizard.png')
         header.textContent = '你是...\nMega噴火龍！'
         description.textContent = '你很強欸，怎麼會來上這種課勒，不要一直電好不好'
 
-
+        if (/Android|webOS|iPhone|iPad/i.test(navigator.userAgent)) {
+            header.style.fontSize = '3rem';
+            description.style.fontSize = '1.5rem';
+        }
 
     } else if (total_score >= 2) {
         img.setAttribute('src', './img/charizard.png')
         header.textContent = '你是...噴火龍！'
         description.textContent = '你有點強欸，怎麼會來上這種課勒，不要一直電好不好'
 
-
+        if (/Android|webOS|iPhone|iPad/i.test(navigator.userAgent)) {
+            header.style.fontSize = '3rem';
+            description.style.fontSize = '1.5rem';
+        }
 
     } else if (total_score >= 1) {
         img.setAttribute('src', './img/charmeleon.png')
         header.textContent = '你是...火恐龍！'
         description.textContent = '你不錯欸，怎麼會來上這種課勒，不要一直電好不好'
 
-
+        if (/Android|webOS|iPhone|iPad/i.test(navigator.userAgent)) {
+            header.style.fontSize = '3rem';
+            description.style.fontSize = '1.5rem';
+        }
 
     } else if (total_score < 1) {
         img.setAttribute('src', './img/charmander.png')
         header.textContent = '你是...小火龍！'
         description.textContent = '無話可說'
 
-
+        if (/Android|webOS|iPhone|iPad/i.test(navigator.userAgent)) {
+            header.style.fontSize = '3rem';
+            description.style.fontSize = '1.5rem';
+        }
 
     }
     console.log(total_score)
