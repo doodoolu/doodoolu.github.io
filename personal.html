@@ -580,13 +580,13 @@
                                     <h6 class="m-0 font-weight-bold text-primary">五題的繳交狀況</h6>
                                     <div class="dropdown no-arrow">
                                         <button class="btn btn-secondary dropdown-toggle" type="button" id="percent_button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        所有題目
+                                        HW1                                    
                                     </button>
                                         <div id='submit_dropdown' class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
                                             <div class="dropdown-header">作業選項:</div>
 
-                                            <button class="dropdown-item">所有題目</button>
-                                            <div class="dropdown-divider"></div>
+                                            <!-- <button class="dropdown-item">所有題目</button>
+                                            <div class="dropdown-divider"></div> -->
                                             <button class="dropdown-item">HW 1</button>
                                             <button class="dropdown-item">HW 2</button>
                                             <button class="dropdown-item">HW 3</button>
@@ -772,6 +772,21 @@
         };
         // Initialize Firebase
         var rankings_db = firebase.initializeApp(firebaseConfig3, 'Rankings');
+    </script>
+    <script>
+        // Your web app's Firebase configuration
+        var firebaseConfig4 = {
+            apiKey: "AIzaSyDp8Dwa7HQK1B4f2B_olY4xsesYpstBJQw",
+            authDomain: "data-total-ac.firebaseapp.com",
+            databaseURL: "https://data-total-ac-default-rtdb.firebaseio.com",
+            projectId: "data-total-ac",
+            storageBucket: "data-total-ac.appspot.com",
+            messagingSenderId: "453473505899",
+            appId: "1:453473505899:web:9980ace523dadff20a972e"
+        };;
+
+        // Initialize Firebase
+        var chart_db = firebase.initializeApp(firebaseConfig4, 'Chart');
     </script>
     <!-- Page level custom scripts -->
     <script src="./js/personal.js"></script>
