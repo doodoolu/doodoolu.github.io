@@ -343,6 +343,7 @@ function createRadarChart(ctx, labels, data) {
                 },
 
                 pointLabels: {
+                    display: !/Android|webOS|iPhone|iPad/i.test(navigator.userAgent),
                     fontSize: 24
                 }
 
