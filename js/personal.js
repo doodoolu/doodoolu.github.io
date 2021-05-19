@@ -44,7 +44,7 @@ function createBarChart(ctx, labels, data) {
                         beginAtZero: true
                     },
                     scaleLabel: {
-                        display: true,
+                        display: !/Android|webOS|iPhone|iPad/i.test(navigator.userAgent),
                         labelString: '繳交次數'
                     }
                 }]
@@ -348,13 +348,12 @@ function createLineChart(ctx, labels, data, data_label) {
             },
             scales: {
                 xAxes: [{
-                    stacked: true,
                     gridLines: {
                         display: false,
                         drawBorder: false
                     },
                     scaleLabel: {
-                        display: true,
+                        display: !/Android|webOS|iPhone|iPad/i.test(navigator.userAgent),
                         labelString: '日期'
                     },
 

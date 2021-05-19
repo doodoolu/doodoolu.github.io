@@ -219,7 +219,7 @@ function createMultiChart(ctx, labels, data) {
                         drawBorder: false
                     },
                     scaleLabel: {
-                        display: true,
+                        display: !/Android|webOS|iPhone|iPad/i.test(navigator.userAgent),
                         labelString: '時間'
                     }
 
@@ -233,7 +233,7 @@ function createMultiChart(ctx, labels, data) {
                         display: false,
                     },
                     scaleLabel: {
-                        display: true,
+                        display: !/Android|webOS|iPhone|iPad/i.test(navigator.userAgent),
                         labelString: '提交次數',
                         rotation: 0,
                     }
@@ -248,7 +248,7 @@ function createMultiChart(ctx, labels, data) {
                         display: false,
                     },
                     scaleLabel: {
-                        display: true,
+                        display: !/Android|webOS|iPhone|iPad/i.test(navigator.userAgent),
                         labelString: 'AC率',
                     }
 
