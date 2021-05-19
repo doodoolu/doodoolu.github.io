@@ -1,6 +1,4 @@
 var user = localStorage['User'];
-//var user = 'b06703012'
-console.log(localStorage['User']);
 const HW_NO = 5
 
 if (user == null) {

@@ -4,7 +4,7 @@ var reset_pw = document.getElementsByClassName('text-center')[1]
 const email_input = document.getElementById("exampleInputEmail")
 
 function validateEmail(email) {
-    const re = /^([A-Za-z0-9_\-\.])+\@([ntu])+\.(edu)+\.(tw)$/;
+    const re = /^([A-Za-z0-9_\-\.])+\@(ntu)+\.(edu)+\.(tw)$/;
     return re.test(email);
 }
 

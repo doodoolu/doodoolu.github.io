@@ -10,6 +10,7 @@ if (user == null) {
 }
 var username_display = document.getElementById('username_display');
 username_display.textContent = user;
+
 var logout = document.getElementById('logout');
 logout.onclick = function() {
     localStorage.removeItem('User');
@@ -18,6 +19,26 @@ logout.onclick = function() {
 
 function initializeBoxes() {
     let ac_rate_max = document.getElementById('ac_rate_max');
+    let most_submit_times = document.getElementById('most_submit_times');
+    let max_interval = document.getElementById('longest_submit_interval');
+    let most_unefficient_hour = document.getElementById('most_unefficient_hour');
+
+
+    page_db.database().ref().on('value', snapshot => {
+        let snap = snapshot.val()
+        let user_info = snap[user]
+        console.log(snap)
+        let interval_time = user_info['max_interval'].match(/(\d+)\s(days)\s(\d+):(\d+):(\d+)/)
+
+        //max_interval.textContent = interval_time[1] + ' days ' + (parseInt(interval_time[3]) + parseFloat(interval_time[4]) / 60 + parseFloat(interval_time[5]) / 3600).toFixed(1).toString() + ' hour(s) ' // + interval_time[4] + ' minute(s) ' + interval_time[5] + ' second(s)'
+        max_interval.textContent = (parseInt(interval_time[1]) * 24 + parseInt(interval_time[3]) +
+                parseFloat(interval_time[4]) / 60 + parseFloat(interval_time[5]) / 3600).toFixed(2).toString() + ' hours ' // + interval_time[4] + ' minute(s) ' + interval_time[5] + ' second(s)'
+        let ac_hour = (user_info['best_working_time'].match(/(\d+),\s(\d+)/))
+        ac_rate_max.textContent = ('0' + ac_hour[1]).slice(-2) + ':00 ~ ' + ac_hour[2] + ':00'
+        let submit_hour = user_info['most_submission_period'].match(/(\d+),\s(\d+)/)
+        most_submit_times.textContent = ('0' + submit_hour[1]).slice(-2) + ':00 ~ ' + submit_hour[2] + ':00'
+
+    })
 
 }
 initializeBoxes();
@@ -31,9 +52,9 @@ function createBarChart(ctx, labels, data) {
         data: {
             labels: labels,
             datasets: [{
+                barPercentage: 0.6,
                 data: data,
                 backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc', 'red', 'gold', 'DodgerBlue', 'Navy'],
-                //hoverBackgroundColor: ['#2e59d9', '#17a673', '#2c9faf'],
                 hoverBorderColor: "rgba(234, 236, 244, 1)",
             }],
         },
@@ -133,7 +154,6 @@ async function initializeBarChart() {
     let data_ary = await getSubmitTimes();
     let data = data_ary[0];
     let data_all = data_ary[1];
-    console.log(data, data_all)
     let labels = []
     for (let i = 0; i < HW_NO; i++) {
         labels.push('Homework ' + (i + 1).toString())
@@ -376,7 +396,7 @@ function createLineChart(ctx, labels, data, data_label) {
                         zeroLineBorderDash: [2]
                     },
                     scaleLabel: {
-                        display: true,
+                        display: !/Android|webOS|iPhone|iPad/i.test(navigator.userAgent),
                         labelString: '繳交次數'
                     }
 
@@ -435,7 +455,6 @@ function getIndex(arr) {
             break
         }
     }
-    console.log(top, bottom)
     return [top, bottom]
 }
 
