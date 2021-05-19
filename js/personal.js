@@ -353,6 +353,11 @@ function createLineChart(ctx, labels, data, data_label) {
                         display: false,
                         drawBorder: false
                     },
+                    scaleLabel: {
+                        display: true,
+                        labelString: '日期'
+                    },
+
                     ticks: {
                         callback: function(value, index, values) {
                             return value.slice(5, value.length).replace('-', '/');
@@ -371,10 +376,22 @@ function createLineChart(ctx, labels, data, data_label) {
                         borderDash: [2],
                         zeroLineBorderDash: [2]
                     },
+                    scaleLabel: {
+                        display: true,
+                        labelString: '繳交次數'
+                    }
+
 
                 }],
             },
-            legend: { display: true },
+            legend: {
+                display: /Android|webOS|iPhone|iPad/i.test(navigator.userAgent),
+                labels: {
+                    boxWidth: 10,
+                },
+                position: 'right'
+
+            },
             tooltips: {
                 backgroundColor: "rgb(255,255,255)",
                 bodyFontColor: "#858796",
