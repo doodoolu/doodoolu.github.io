@@ -385,7 +385,7 @@ function createLineChart(ctx, labels, data, data_label) {
                 }],
             },
             legend: {
-                display: /Android|webOS|iPhone|iPad/i.test(navigator.userAgent),
+                display: !/Android|webOS|iPhone|iPad/i.test(navigator.userAgent),
                 labels: {
                     boxWidth: 10,
                 },
