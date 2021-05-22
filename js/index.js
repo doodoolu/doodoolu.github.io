@@ -23,7 +23,7 @@ function initializeBoxes() {
     let student_id = document.getElementById('student_id');
     let submit_box = document.getElementById('submit_box');
     let ac_times_box = document.getElementById('ac_times_box');
-    let try_times_box = document.getElementById('try_times_box');
+    let avg_try_times = document.getElementById('avg_try_times');
     let ac_time_bar = document.getElementById('ac_times_bar');
 
 
@@ -37,6 +37,12 @@ function initializeBoxes() {
         let finish_percent = ((parseFloat(user_info['total_AC_count']) / 30).toFixed(2) * 100).toString() + '%';
         ac_time_bar.style.width = finish_percent;
         ac_time_bar.textContent = finish_percent;
+        if (user_info['avg_SubmitToAC'] === '無限多') {
+            avg_try_times.textContent = '無限多次'
+        } else {
+            avg_try_times.textContent = parseFloat(user_info['avg_SubmitToAC']).toFixed(2) + '次'
+
+        }
     })
 }
 initializeBoxes();
@@ -418,31 +424,31 @@ async function displayRank() {
         description.style.fontSize = '1rem';
     }
 
-    if (total_score >= 4) {
+    if (total_score >= 400) {
         img.setAttribute('src', './img/dynamax_charizard.png')
         header.textContent = '你是...\n超極巨化噴火龍！'
-        description.textContent = '你超強的啦，怎麼會來上這種課勒，不要一直電好不好'
+        description.textContent = '挖挖挖挖靠 是超極巨化噴火龍欸，同學你是天才吧~可以跟我說你都吃什麼長大的嗎?'
 
 
-    } else if (total_score >= 3) {
+    } else if (total_score >= 300) {
         img.setAttribute('src', './img/mega_charizard.png')
         header.textContent = '你是...\nMega噴火龍！'
-        description.textContent = '你很強欸，怎麼會來上這種課勒，不要一直電好不好'
+        description.textContent = '挖賽！是Mega噴火龍欸，同學你是第一次學程式嗎? 作業不可能難倒你吧'
 
-    } else if (total_score >= 2) {
+    } else if (total_score >= 200) {
         img.setAttribute('src', './img/charizard.png')
         header.textContent = '你是...噴火龍！'
-        description.textContent = '你有點強欸，怎麼會來上這種課勒，不要一直電好不好'
+        description.textContent = '挖~是噴火龍欸，同學你不用謙虛了，你已經掌握到Python的精隨了~'
 
-    } else if (total_score >= 1) {
+    } else if (total_score >= 100) {
         img.setAttribute('src', './img/charmeleon.png')
         header.textContent = '你是...火恐龍！'
-        description.textContent = '你不錯欸，怎麼會來上這種課勒，不要一直電好不好'
+        description.textContent = '蛤~你是火恐龍，同學你的修練之路還很長，要再加把勁阿~'
 
-    } else if (total_score < 1) {
+    } else if (total_score < 100) {
         img.setAttribute('src', './img/charmander.png')
         header.textContent = '你是...小火龍！'
-        description.textContent = '無話可說'
+        description.textContent = 'ㄜㄜㄜ~ 你還是小火龍，同學你家沒有網路嗎? 可憐阿~'
     }
     console.log(total_score)
 

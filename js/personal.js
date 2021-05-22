@@ -21,7 +21,7 @@ function initializeBoxes() {
     let ac_rate_max = document.getElementById('ac_rate_max');
     let most_submit_times = document.getElementById('most_submit_times');
     let max_interval = document.getElementById('longest_submit_interval');
-    let most_unefficient_hour = document.getElementById('most_unefficient_hour');
+    let total_debug_time = document.getElementById('total_debug_time');
 
 
     page_db.database().ref().on('value', snapshot => {
@@ -37,7 +37,14 @@ function initializeBoxes() {
         ac_rate_max.textContent = ('0' + ac_hour[1]).slice(-2) + ':00 ~ ' + ac_hour[2] + ':00'
         let submit_hour = user_info['most_submission_period'].match(/(\d+),\s(\d+)/)
         most_submit_times.textContent = ('0' + submit_hour[1]).slice(-2) + ':00 ~ ' + submit_hour[2] + ':00'
+        let sum_debug = 0;
+        for (let i = 1; i <= HW_NO; i++) {
+            let hw_debug = user_info['HW' + i.toString() + '_debugtime'].match(/(\d+)\s(days)\s(\d+):(\d+):(\d+)/)
+            sum_debug += (parseInt(hw_debug[1]) * 24 + parseInt(hw_debug[3]) +
+                parseFloat(hw_debug[4]) / 60 + parseFloat(hw_debug[5]) / 3600)
 
+        }
+        total_debug_time.textContent = sum_debug.toFixed(2) + 'hours';
     })
 
 }
