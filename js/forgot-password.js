@@ -1,5 +1,5 @@
 var forgot_email = document.getElementById("exampleInputEmail")
-var reset_button = document.getElementsByClassName("btn btn-primary btn-user btn-block")[0]
+var reset_button = document.getElementById('forgot');
 var reset_pw = document.getElementsByClassName('text-center')[1]
 const email_input = document.getElementById("exampleInputEmail")
 
@@ -19,15 +19,15 @@ function getEmail() {
     var user_email = forgot_email.value
     var user_name = user_email.slice(0, 9)
     if (validateEmail(user_email)) {
-        firebase.database().ref().on('value', snapshot => {
+        firebase.database().ref(user_name).on('value', snapshot => {
                 let snap = snapshot.val()
-                if (snap[user_name] != null) {
+                if (snap != null) {
                     reset_pw.textContent = ''
-                    sendEmail(user_email, snap[user_name]['Password']);
+                    sendEmail(user_email, snap['Password']);
 
 
                 } else {
-                    reset_pw.textContent = 'You must be enrolled in PWS 2021 Spring class to retrieve your password!'
+                    reset_pw.textContent = 'You must be enrolled in PWS 109-2 to retrieve your password!'
                     reset_pw.style.color = 'red'
                     reset_pw.style.fontSize = '0.9rem'
 
