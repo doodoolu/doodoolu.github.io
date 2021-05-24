@@ -44,7 +44,7 @@ function initializeBoxes() {
                 parseFloat(hw_debug[4]) / 60 + parseFloat(hw_debug[5]) / 3600)
 
         }
-        total_debug_time.textContent = sum_debug.toFixed(2) + 'hours';
+        total_debug_time.textContent = sum_debug.toFixed(2) + ' hours';
     })
 
 }
@@ -61,7 +61,7 @@ function createBarChart(ctx, labels, data) {
             datasets: [{
                 barPercentage: 0.6,
                 data: data,
-                backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc', 'red', 'gold', 'DodgerBlue', 'Navy'],
+                backgroundColor: ['#BB585E', '#D4BAAD', '#FEF686', '#89ACB2', '#487980', '#D7E6D3'],
                 hoverBorderColor: "rgba(234, 236, 244, 1)",
             }],
         },
@@ -504,3 +504,140 @@ async function initializeLineChart() {
 
 }
 initializeLineChart();
+
+function createRadarChart(ctx, labels, data) {
+    var radar = new Chart(ctx, {
+        type: 'radar',
+        data: {
+            labels: labels,
+            datasets: [{
+                    lineTension: 0,
+                    backgroundColor: "rgba(78, 115, 223, 0.2)",
+                    borderColor: "rgba(78, 115, 223, 1)",
+                    pointRadius: 5,
+                    pointBackgroundColor: "rgba(78, 115, 223, 1)",
+                    pointBorderColor: "rgba(78, 115, 223, 1)",
+                    pointHoverRadius: 3,
+                    pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
+                    pointHoverBorderColor: "rgba(78, 115, 223, 1)",
+                    data: data
+                },
+
+            ],
+        },
+        options: {
+            scale: {
+                ticks: {
+                    beginAtZero: true,
+                    max: 100
+                },
+                gridLines: {
+                    //color: ['black', 'red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'black', 'red', 'orange', 'yellow', 'green', 'blue', 'indigo']
+                },
+
+                pointLabels: {
+                    display: !/Android|webOS|iPhone|iPad/i.test(navigator.userAgent),
+                    fontSize: 24
+                }
+
+            },
+
+            maintainAspectRatio: false,
+            layout: {
+                padding: {
+                    left: 10,
+                    right: 25,
+                    top: 10,
+                    bottom: 0
+                }
+            },
+            legend: {
+                display: false
+            },
+
+            tooltips: {
+                backgroundColor: "rgb(255,255,255)",
+                bodyFontColor: "#858796",
+                titleMarginBottom: 10,
+                titleFontColor: '#6e707e',
+                titleFontSize: 14,
+                borderColor: '#dddfeb',
+                borderWidth: 1,
+                xPadding: 15,
+                yPadding: 15,
+                displayColors: false,
+                intersect: false,
+                mode: 'index',
+                caretPadding: 10,
+                callbacks: {
+                    title: (tooltipItem, data) => data.labels[tooltipItem[0].index],
+                    label: function(context) {
+                        return parseFloat(context.value).toFixed(2) + '分';
+                    }
+                }
+
+            },
+
+        }
+
+    });
+    return radar;
+
+}
+
+function initalizeRadarChart() {
+    let ctx = document.getElementById('radar');
+    return new Promise((resolve, reject) => {
+
+        radar_db.database().ref().on('value', snapshot => {
+            let snap = snapshot.val()
+            let user_info = snap[user]
+            let labels = ['精確度', '難題大師', '完成度', '細心度', '效率']
+            let data = Object.values(user_info)
+            data = data.map(currentValue => ((1 - parseFloat(currentValue)).toFixed(4) * 100).toString())
+            createRadarChart(ctx, labels, data)
+            resolve(data.reduce((a, b) => parseFloat(a) + parseFloat(b), 0))
+        })
+    })
+}
+
+async function displayRank() {
+    let total_score = await initalizeRadarChart();
+    let img = document.getElementById('rank_image');
+    let description = document.getElementById('rank_description');
+    let header = document.getElementById('rank_header');
+    if (/Android|webOS|iPhone|iPad/i.test(navigator.userAgent)) {
+        header.style.fontSize = '2rem';
+        description.style.fontSize = '1rem';
+    }
+
+    if (total_score >= 400) {
+        img.setAttribute('src', './img/dynamax_charizard.png')
+        header.textContent = '你是...\n超極巨化噴火龍！'
+        description.textContent = '挖挖挖挖靠！是超極巨化噴火龍欸，同學你是天才吧～可以跟我說你都吃什麼長大的嗎?'
+
+
+    } else if (total_score >= 300) {
+        img.setAttribute('src', './img/mega_charizard.png')
+        header.textContent = '你是...\nMega噴火龍！'
+        description.textContent = '挖賽！是Mega噴火龍欸，同學你是第一次學程式嗎？作業不可能難倒你吧'
+
+    } else if (total_score >= 200) {
+        img.setAttribute('src', './img/charizard.png')
+        header.textContent = '你是...噴火龍！'
+        description.textContent = '挖～是噴火龍欸，同學你不用謙虛了，你已經掌握到Python的精隨了～'
+
+    } else if (total_score >= 100) {
+        img.setAttribute('src', './img/charmeleon.png')
+        header.textContent = '你是...火恐龍！'
+        description.textContent = '蛤～你是火恐龍，同學你的修練之路還很長，要再加把勁阿～'
+
+    } else if (total_score < 100) {
+        img.setAttribute('src', './img/charmander.png')
+        header.textContent = '你是...小火龍！'
+        description.textContent = 'ㄜㄜㄜ～你還是小火龍，同學你家沒有網路嗎？可憐阿～'
+    }
+    console.log(total_score)
+
+}
+displayRank()
