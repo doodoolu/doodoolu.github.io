@@ -53,7 +53,7 @@ function createDoughnutChart(ctx, labels, data) {
             labels: labels,
             datasets: [{
                 data: data,
-                backgroundColor: ['#BB585E', '#D4BAAD', '#FEF686', '#AD8871', '#89ACB2', '#487980', '#D7E6D3'],
+                backgroundColor: ['#F94144', '#F8961E', '#F9C74F', 'purple', '#43AA8B', '#577590', '#90BE6D'],
                 hoverBorderColor: "rgba(234, 236, 244, 1)",
 
             }],
@@ -88,7 +88,6 @@ function displayChart(ctx, hw_name) {
             let snap = snapshot.val()
             let labels = Object.keys(snap[hw_name])
             let data = Object.values(snap[hw_name])
-            console.log(labels)
             let doughnut = createDoughnutChart(ctx, labels, data)
             document.getElementById('datalabel' + hw_name.slice(-1)).textContent =
                 hw_name + '\nAccepted Rate:\n' + data[0].toString() + '/' + data.reduce((a, b) => a + b, 0)
@@ -154,25 +153,24 @@ function createMultiChart(ctx, labels, data) {
         data: {
             labels: labels,
             datasets: [{
-                    label: "AC_Rate",
+                    label: "AC率",
                     type: 'line',
                     yAxisID: 'B',
                     fill: false,
                     lineTension: 0,
-                    borderColor: "#487980",
+                    borderColor: "#43AA8B",
                     pointRadius: 3,
-                    pointBackgroundColor: "#487980",
-                    pointBorderColor: "#487980",
+
                     pointHoverRadius: 5,
                     pointHitRadius: 10,
                     pointBorderWidth: 2,
                     data: data[0]
                 },
                 {
-                    label: 'AC_Times',
+                    label: 'AC次數',
                     barPercentage: 0.8,
                     yAxisID: 'A',
-                    backgroundColor: '#BB585E',
+                    backgroundColor: '#F94144',
                     borderColor: "rgba(78, 115, 223, 1)",
                     pointRadius: 3,
                     pointBackgroundColor: "rgba(78, 115, 223, 1)",
@@ -183,10 +181,10 @@ function createMultiChart(ctx, labels, data) {
                     data: data[1]
                 },
                 {
-                    label: 'WA_Times',
+                    label: 'WA次數',
                     barPercentage: 0.8,
                     yAxisID: 'A',
-                    backgroundColor: '#FEF686',
+                    backgroundColor: '#F9C74F',
                     borderColor: "rgba(78, 115, 223, 1)",
                     pointRadius: 3,
                     pointBackgroundColor: "rgba(78, 115, 223, 1)",
@@ -215,6 +213,8 @@ function createMultiChart(ctx, labels, data) {
                         display: false,
                         drawBorder: false
                     },
+                    display: !/Android|webOS|iPhone|iPad/i.test(navigator.userAgent),
+
                     scaleLabel: {
                         display: !/Android|webOS|iPhone|iPad/i.test(navigator.userAgent),
                         labelString: '時間'
@@ -233,8 +233,8 @@ function createMultiChart(ctx, labels, data) {
                         display: !/Android|webOS|iPhone|iPad/i.test(navigator.userAgent),
                         labelString: '提交次數',
                         rotation: 0,
-                    }
-
+                    },
+                    display: !/Android|webOS|iPhone|iPad/i.test(navigator.userAgent),
 
                 }, {
                     id: 'B',
@@ -247,7 +247,8 @@ function createMultiChart(ctx, labels, data) {
                     scaleLabel: {
                         display: !/Android|webOS|iPhone|iPad/i.test(navigator.userAgent),
                         labelString: 'AC率',
-                    }
+                    },
+                    display: !/Android|webOS|iPhone|iPad/i.test(navigator.userAgent),
 
                 }],
             },

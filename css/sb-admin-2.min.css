@@ -9994,7 +9994,7 @@ a.text-yellow:focus {
 }
 
 .text-color1 {
-    color: #BB585E !important;
+    color: #F94144 !important;
 }
 
 .text-color2 {
@@ -10006,7 +10006,7 @@ a.text-yellow:focus {
 }
 
 .text-color4 {
-    color: #D4BAAD !important;
+    color: #F8961E !important;
 }
 
 .text-color5 {
@@ -10014,11 +10014,11 @@ a.text-yellow:focus {
 }
 
 .text-color6 {
-    color: #FEF686 !important;
+    color: #F9C74F !important;
 }
 
 .text-color7 {
-    color: #D7E6D3 !important;
+    color: #90BE6D !important;
 }
 
 .text-color8 {
@@ -10026,11 +10026,11 @@ a.text-yellow:focus {
 }
 
 .text-color9 {
-    color: #89ACB2 !important;
+    color: #43AA8B !important;
 }
 
 .text-color10 {
-    color: #487980 !important;
+    color: #577590 !important;
 }
 
 .text-body {
@@ -11279,19 +11279,19 @@ border-left-primary {
 }
 
 .bg-login-image {
-    background: url("../img/jingguolin.jpg");
+    background: url("../img/lin.jpg");
     background-position: center;
     background-size: cover;
 }
 
 .bg-register-image {
-    background: url("../img/jingguolin.jpg");
+    background: url("../img/lin.jpg");
     background-position: center;
     background-size: cover;
 }
 
 .bg-password-image {
-    background: url("../img/jingguolin.jpg");
+    background: url("../img/lin.jpg");
     background-position: center;
     background-size: cover;
     position: relative;
