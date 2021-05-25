@@ -514,10 +514,10 @@ function createRadarChart(ctx, labels, data) {
                     lineTension: 0,
                     backgroundColor: "rgba(78, 115, 223, 0.2)",
                     borderColor: "rgba(78, 115, 223, 1)",
-                    pointRadius: 5,
+                    pointRadius: 3,
                     pointBackgroundColor: "rgba(78, 115, 223, 1)",
                     pointBorderColor: "rgba(78, 115, 223, 1)",
-                    pointHoverRadius: 3,
+                    pointHoverRadius: 5,
                     pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
                     pointHoverBorderColor: "rgba(78, 115, 223, 1)",
                     data: data
