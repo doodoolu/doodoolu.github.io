@@ -80,7 +80,7 @@ function createRadarChart(ctx, labels, data) {
 
                 pointLabels: {
                     display: !/Android|webOS|iPhone|iPad/i.test(navigator.userAgent),
-                    fontSize: 20
+                    fontSize: 24
                 }
 
             },
@@ -115,7 +115,7 @@ function createRadarChart(ctx, labels, data) {
                 callbacks: {
                     title: (tooltipItem, data) => data.labels[tooltipItem[0].index],
                     label: function(context) {
-                        return parseFloat(context.value).toFixed(2) + '分';
+                        return parseFloat(context.value).toFixed(0);
                     }
                 }
 
@@ -138,14 +138,15 @@ function initalizeRadarChart() {
             let labels = ['精確度', '難題大師', '完成度', '細心度', '效率']
             let data = Object.values(user_info)
             let multiplier = [1, 1.2, 1.2, 0.8, 0.8]
+            let data_weighted = []
             for (let i = 0; i < 5; i++) {
-
-                data[i] = (1 - parseFloat(data[i])) * multiplier[i] * 100
+                data[i] = ((1 - parseFloat(data[i])) * 100)
+                data_weighted.push(data[i] * multiplier[i])
 
             }
             createRadarChart(ctx, labels, data)
 
-            resolve(data.reduce((a, b) => parseFloat(a) + parseFloat(b), 0))
+            resolve(data_weighted.reduce((a, b) => parseFloat(a) + parseFloat(b), 0))
         })
     })
 }
