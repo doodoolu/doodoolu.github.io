@@ -1,6 +1,5 @@
 var user = localStorage['User'];
-const HW_NO = 5
-
+const HW_NO = 5;
 if (user == null) {
     window.location.href = './login.html';
 
@@ -54,8 +53,7 @@ function createDoughnutChart(ctx, labels, data) {
             labels: labels,
             datasets: [{
                 data: data,
-                backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc', 'red', 'gold', 'DodgerBlue', 'Navy'],
-                //hoverBackgroundColor: ['#2e59d9', '#17a673', '#2c9faf'],
+                backgroundColor: ['#F94144', '#F8961E', '#F9C74F', 'purple', '#43AA8B', '#577590', '#90BE6D'],
                 hoverBorderColor: "rgba(234, 236, 244, 1)",
 
             }],
@@ -73,6 +71,7 @@ function createDoughnutChart(ctx, labels, data) {
                 yPadding: 15,
                 displayColors: false,
                 caretPadding: 10,
+                z: 100,
             },
             legend: {
                 display: false
@@ -154,51 +153,43 @@ function createMultiChart(ctx, labels, data) {
         data: {
             labels: labels,
             datasets: [{
-                    label: "AC_Rate",
+                    label: "AC率",
                     type: 'line',
                     yAxisID: 'B',
                     fill: false,
                     lineTension: 0,
-                    backgroundColor: "rgba(78, 115, 223, 0.05)",
-                    borderColor: "rgba(78, 115, 223, 1)",
+                    borderColor: "#43AA8B",
                     pointRadius: 3,
-                    pointBackgroundColor: "rgba(78, 115, 223, 1)",
-                    pointBorderColor: "rgba(78, 115, 223, 1)",
-                    pointHoverRadius: 3,
-                    pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
-                    pointHoverBorderColor: "rgba(78, 115, 223, 1)",
+
+                    pointHoverRadius: 5,
                     pointHitRadius: 10,
                     pointBorderWidth: 2,
                     data: data[0]
                 },
                 {
-                    label: 'AC_Times',
+                    label: 'AC次數',
                     barPercentage: 0.8,
                     yAxisID: 'A',
-                    backgroundColor: 'brown',
+                    backgroundColor: '#F94144',
                     borderColor: "rgba(78, 115, 223, 1)",
                     pointRadius: 3,
                     pointBackgroundColor: "rgba(78, 115, 223, 1)",
                     pointBorderColor: "rgba(78, 115, 223, 1)",
                     pointHoverRadius: 3,
-                    pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
-                    pointHoverBorderColor: "rgba(78, 115, 223, 1)",
                     pointHitRadius: 10,
                     pointBorderWidth: 2,
                     data: data[1]
                 },
                 {
-                    label: 'WA_Times',
+                    label: 'WA次數',
                     barPercentage: 0.8,
                     yAxisID: 'A',
-                    backgroundColor: 'gold',
+                    backgroundColor: '#F9C74F',
                     borderColor: "rgba(78, 115, 223, 1)",
                     pointRadius: 3,
                     pointBackgroundColor: "rgba(78, 115, 223, 1)",
                     pointBorderColor: "rgba(78, 115, 223, 1)",
                     pointHoverRadius: 3,
-                    pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
-                    pointHoverBorderColor: "rgba(78, 115, 223, 1)",
                     pointHitRadius: 10,
                     pointBorderWidth: 2,
                     data: data[2]
@@ -222,6 +213,8 @@ function createMultiChart(ctx, labels, data) {
                         display: false,
                         drawBorder: false
                     },
+                    display: !/Android|webOS|iPhone|iPad/i.test(navigator.userAgent),
+
                     scaleLabel: {
                         display: !/Android|webOS|iPhone|iPad/i.test(navigator.userAgent),
                         labelString: '時間'
@@ -240,8 +233,8 @@ function createMultiChart(ctx, labels, data) {
                         display: !/Android|webOS|iPhone|iPad/i.test(navigator.userAgent),
                         labelString: '提交次數',
                         rotation: 0,
-                    }
-
+                    },
+                    display: !/Android|webOS|iPhone|iPad/i.test(navigator.userAgent),
 
                 }, {
                     id: 'B',
@@ -254,7 +247,8 @@ function createMultiChart(ctx, labels, data) {
                     scaleLabel: {
                         display: !/Android|webOS|iPhone|iPad/i.test(navigator.userAgent),
                         labelString: 'AC率',
-                    }
+                    },
+                    display: !/Android|webOS|iPhone|iPad/i.test(navigator.userAgent),
 
                 }],
             },
@@ -315,142 +309,3 @@ function initializeMultiChart() {
 
 }
 initializeMultiChart()
-
-
-
-function createRadarChart(ctx, labels, data) {
-    var radar = new Chart(ctx, {
-        type: 'radar',
-        data: {
-            labels: labels,
-            datasets: [{
-                    lineTension: 0,
-                    backgroundColor: "rgba(78, 115, 223, 0.2)",
-                    borderColor: "rgba(78, 115, 223, 1)",
-                    pointRadius: 5,
-                    pointBackgroundColor: "rgba(78, 115, 223, 1)",
-                    pointBorderColor: "rgba(78, 115, 223, 1)",
-                    pointHoverRadius: 3,
-                    pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
-                    pointHoverBorderColor: "rgba(78, 115, 223, 1)",
-                    data: data
-                },
-
-            ],
-        },
-        options: {
-            scale: {
-                ticks: {
-                    beginAtZero: true,
-                    max: 100
-                },
-                gridLines: {
-                    //color: ['black', 'red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'black', 'red', 'orange', 'yellow', 'green', 'blue', 'indigo']
-                },
-
-                pointLabels: {
-                    display: !/Android|webOS|iPhone|iPad/i.test(navigator.userAgent),
-                    fontSize: 24
-                }
-
-            },
-
-            maintainAspectRatio: false,
-            layout: {
-                padding: {
-                    left: 10,
-                    right: 25,
-                    top: 10,
-                    bottom: 0
-                }
-            },
-            legend: {
-                display: false
-            },
-
-            tooltips: {
-                backgroundColor: "rgb(255,255,255)",
-                bodyFontColor: "#858796",
-                titleMarginBottom: 10,
-                titleFontColor: '#6e707e',
-                titleFontSize: 14,
-                borderColor: '#dddfeb',
-                borderWidth: 1,
-                xPadding: 15,
-                yPadding: 15,
-                displayColors: false,
-                intersect: false,
-                mode: 'index',
-                caretPadding: 10,
-                callbacks: {
-                    title: (tooltipItem, data) => data.labels[tooltipItem[0].index],
-                    label: function(context) {
-                        return parseFloat(context.value).toFixed(2) + '分';
-                    }
-                }
-
-            },
-
-        }
-
-    });
-    return radar;
-
-}
-
-function initalizeRadarChart() {
-    let ctx = document.getElementById('radar');
-    return new Promise((resolve, reject) => {
-
-        radar_db.database().ref().on('value', snapshot => {
-            let snap = snapshot.val()
-            let user_info = snap[user]
-            let labels = ['精確度', '難題大師', '完成度', '細心度', '效率']
-            let data = Object.values(user_info)
-            data = data.map(currentValue => ((1 - parseFloat(currentValue)).toFixed(4) * 100).toString())
-            createRadarChart(ctx, labels, data)
-            resolve(data.reduce((a, b) => parseFloat(a) + parseFloat(b), 0))
-        })
-    })
-}
-
-async function displayRank() {
-    let total_score = await initalizeRadarChart();
-    let img = document.getElementById('rank_image');
-    let description = document.getElementById('rank_description');
-    let header = document.getElementById('rank_header');
-    if (/Android|webOS|iPhone|iPad/i.test(navigator.userAgent)) {
-        header.style.fontSize = '2rem';
-        description.style.fontSize = '1rem';
-    }
-
-    if (total_score >= 400) {
-        img.setAttribute('src', './img/dynamax_charizard.png')
-        header.textContent = '你是...\n超極巨化噴火龍！'
-        description.textContent = '挖挖挖挖靠 是超極巨化噴火龍欸，同學你是天才吧~可以跟我說你都吃什麼長大的嗎?'
-
-
-    } else if (total_score >= 300) {
-        img.setAttribute('src', './img/mega_charizard.png')
-        header.textContent = '你是...\nMega噴火龍！'
-        description.textContent = '挖賽！是Mega噴火龍欸，同學你是第一次學程式嗎? 作業不可能難倒你吧'
-
-    } else if (total_score >= 200) {
-        img.setAttribute('src', './img/charizard.png')
-        header.textContent = '你是...噴火龍！'
-        description.textContent = '挖~是噴火龍欸，同學你不用謙虛了，你已經掌握到Python的精隨了~'
-
-    } else if (total_score >= 100) {
-        img.setAttribute('src', './img/charmeleon.png')
-        header.textContent = '你是...火恐龍！'
-        description.textContent = '蛤~你是火恐龍，同學你的修練之路還很長，要再加把勁阿~'
-
-    } else if (total_score < 100) {
-        img.setAttribute('src', './img/charmander.png')
-        header.textContent = '你是...小火龍！'
-        description.textContent = 'ㄜㄜㄜ~ 你還是小火龍，同學你家沒有網路嗎? 可憐阿~'
-    }
-    console.log(total_score)
-
-}
-displayRank()

@@ -32,7 +32,9 @@
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3"><Marquee>誰是佼佼者 <sup>2021</sup></Marquee></div>
+                <div class="sidebar-brand-text mx-3">
+                    <Marquee>誰是佼佼者 <sup>2021</sup></Marquee>
+                </div>
             </a>
 
             <!-- Divider -->
@@ -160,7 +162,7 @@
                                         <div class="status-indicator bg-success"></div>
                                     </div>
                                     <div class="font-weight-bold">
-                                        <div class="text-truncate">網頁編排</div>
+                                        <div class="text-truncate">網頁設計</div>
                                         <div class="small text-gray-500">杜薇 · 會計系</div>
                                     </div>
                                 </a>
@@ -180,7 +182,7 @@
                                         <div class="status-indicator bg-warning"></div>
                                     </div>
                                     <div>
-                                        <div class="font-weight-bold">資料庫架設</div>
+                                        <div class="font-weight-bold">爬蟲、資料庫、Javascipt</div>
                                         <div class="small text-gray-500">張銘軒 · 財金系</div>
                                     </div>
                                 </a>
@@ -199,7 +201,6 @@
                         </li>
 
                         <div class="topbar-divider d-none d-sm-block"></div>
-
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -208,7 +209,9 @@
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-
+                                <a class="dropdown-item" href="./reset-password.html">
+                                    <i class="fas fa-key fa-sm fa-fw mr-2 text-gray-400"></i> Reset Password
+                                </a>
 
                                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i> Logout
@@ -276,11 +279,7 @@
                                                 <div class="col-auto">
                                                     <div id='longest_submit_interval' class="h5 mb-0 mr-3 font-weight-bold text-gray-800"></div>
                                                 </div>
-                                                <!-- <div class="col">
-                                                    <div class="progress progress-sm mr-2">
-                                                        <div class="progress-bar bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                                                    </div>
-                                                </div> -->
+
                                             </div>
                                         </div>
                                         <div class="col-auto">
@@ -317,7 +316,7 @@
                     </p>
 
                     <div class="row">
-                        <div class="col-lg-12 mb-4">
+                        <div class="col-xl-12 mb-4">
 
                             <div class="card shadow ">
 
@@ -327,7 +326,7 @@
 
                                 <div class="card-body ">
                                     <div class="row ">
-                                        <div class="col-lg-6 mb-4 ">
+                                        <div class="col-xl-6 mb-4 ">
                                             <div class="card mb-4 shadow mb-3" style=" min-height: 100%;">
                                                 <img id='rank_image' style="max-width: 100%; ">
 
@@ -335,11 +334,11 @@
 
 
                                         </div>
-                                        <div class="col-lg-6 mb-4 ">
+                                        <div class="col-xl-6 mb-4 ">
                                             <div class="card mb-4 shadow mb-3" style=" min-height: 100%; ">
                                                 <div style="padding:1.25rem; ">
-                                                    <h1 id='rank_header' style="font-size: 4rem; white-space: pre-wrap;"></h1>
-                                                    <p id='rank_description' style="font-size: 2rem; white-space: wrap;">
+                                                    <h1 id='rank_header' style="font-size: 3rem; white-space: pre-wrap;"></h1>
+                                                    <p id='rank_description' style="font-size: 1.5rem; white-space: wrap;">
                                                     </p>
 
                                                 </div>
@@ -347,9 +346,9 @@
 
 
                                         </div>
-                                        <div class="col-lg-12 mb-4 ">
+                                        <div class="col-xl-12 mb-4 ">
                                             <div class="row">
-                                                <div class="col-xl-12 col-lg-7">
+                                                <div class="col-xl-12 ">
                                                     <div class="card shadow mb-3">
                                                         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between ">
                                                             <h6 class="m-0 font-weight-bold text-primary ">您的戰力指數</h6>
@@ -377,9 +376,8 @@
 
                             </div>
                         </div>
-                    
-                    </div>
 
+                    </div>
                     <!-- Content Row -->
 
 
@@ -449,29 +447,29 @@
                                     </div>
                                 </div>
                                 <div id='hw_percentage' class="card-body" style="min-height: 100%; width: 100%;">
-                                    <h4 class="small font-weight-bold">Problem 1 <span class="float-right">0%</span></h4>
+                                    <h4 class="small font-weight-bold">HW 1 <span class="float-right">0%</span></h4>
                                     <div class="progress mb-4">
-                                        <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                                        <div class="progress-bar " style="background-color: #F94144;" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
-                                    <h4 class="small font-weight-bold">Problem 2 <span class="float-right">0%</span></h4>
+                                    <h4 class="small font-weight-bold">HW 2 <span class="float-right">0%</span></h4>
                                     <div class="progress mb-4">
-                                        <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+                                        <div class="progress-bar " style="background-color: #F8961E;" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
-                                    <h4 class="small font-weight-bold">Problem 3 <span class="float-right">0%</span></h4>
+                                    <h4 class="small font-weight-bold">HW 3 <span class="float-right">0%</span></h4>
                                     <div class="progress mb-4">
-                                        <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                                        <div class="progress-bar" style="background-color: #F9C74F;" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
-                                    <h4 class="small font-weight-bold">Problem 4 <span class="float-right">0%</span></h4>
+                                    <h4 class="small font-weight-bold">HW 4 <span class="float-right">0%</span></h4>
                                     <div class="progress mb-4">
-                                        <div class="progress-bar bg-info" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+                                        <div class="progress-bar " style="background-color: #90BE6D;" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
-                                    <h4 class="small font-weight-bold">Problem 5 <span class="float-right">0%</span></h4>
+                                    <h4 class="small font-weight-bold">HW 5 <span class="float-right">0%</span></h4>
                                     <div class="progress mb-4">
-                                        <div class="progress-bar bg-success" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                                        <div class="progress-bar " style="background-color: #43AA8B;" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
-                                    <h4 class="small font-weight-bold">Problem 6 <span class="float-right">0%</span></h4>
+                                    <h4 class="small font-weight-bold">HW 6 <span class="float-right">0%</span></h4>
                                     <div class="progress">
-                                        <div class="progress-bar bg-light" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                                        <div class="progress-bar " style="background-color: #577590;" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
 
                                 </div>
@@ -481,9 +479,85 @@
                         </div>
                     </div>
 
+                    <div class="row">
+                        <!-- Donut Chart -->
+                        <div class="col-xl-10">
+                            <div class="card shadow mb-4">
+
+                                <!-- Card Header - Dropdown -->
+                                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h6 class="m-0 font-weight-bold text-primary">每次作業繳交情況</h6>
+                                    <div class="dropdown no-arrow">
+                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                                            <div class="dropdown-header">作業選項:</div>
+
+                                            <a class="dropdown-item" href="#">所有題目</a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="#">HW1</a>
+                                            <a class="dropdown-item" href="#">HW2</a>
+                                            <a class="dropdown-item" href="#">HW3</a>
+                                            <a class="dropdown-item" href="#">HW4</a>
+                                            <a class="dropdown-item" href="#">HW5</a>
+                                            <a class="dropdown-item" href="#">HW6</a>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Card Body -->
+                                <div class="row">
+                                    <div class="card-body col-xl-12">
+                                        <div class="google-slides-container">
+                                            <iframe src="https://docs.google.com/presentation/d/e/2PACX-1vShbLxaqqS19_CM5EcIdtRaVXoPE0MglekwP5d0-DwkzIc7pWrRKobC8gk6UXkinzU2po98oJL61eCz/embed?start=false&loop=true&delayms=60000" frameborder="0" width="944" height="569" allowfullscreen="true" mozallowfullscreen="true"
+                                                webkitallowfullscreen="true"></iframe>
+                                        </div>
+                                        <hr> Styling for the donut chart can be found in the
+                                        <code>/js/demo/chart-pie-demo.js</code> file.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <!-- Bar Chart -->
+                            <div class="card shadow mb-3 ">
+                                <!-- Card Header - Dropdown -->
+                                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h6 class="m-0 font-weight-bold text-primary">五題的繳交狀況</h6>
+                                    <div class="dropdown no-arrow">
+                                        <button class="btn btn-secondary dropdown-toggle" type="button" id="percent_button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        HW1                                    
+                                    </button>
+                                        <div id='submit_dropdown' class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                                            <div class="dropdown-header">作業選項:</div>
+
+                                            <!-- <button class="dropdown-item">所有題目</button>
+                                            <div class="dropdown-divider"></div> -->
+                                            <button class="dropdown-item">HW 1</button>
+                                            <button class="dropdown-item">HW 2</button>
+                                            <button class="dropdown-item">HW 3</button>
+                                            <button class="dropdown-item">HW 4</button>
+                                            <button class="dropdown-item">HW 5</button>
+                                            <button class="dropdown-item">HW 6</button>
 
 
-                    
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
 
                 </div>
                 <!-- /.container-fluid -->
@@ -545,10 +619,23 @@
     <script src="vendor/chart.js/Chart.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-database.js"></script>
-
     <script>
         // Your web app's Firebase configuration
-        var firebaseConfig = {
+        var firebaseConfig1 = {
+            apiKey: "AIzaSyDrxZJZ3k674-H2POQZbvFiHVTeFDslRMw",
+            authDomain: "data-personal-radar.firebaseapp.com",
+            databaseURL: "https://data-personal-radar-default-rtdb.firebaseio.com",
+            projectId: "data-personal-radar",
+            storageBucket: "data-personal-radar.appspot.com",
+            messagingSenderId: "657890312847",
+            appId: "1:657890312847:web:4f48cd252660f611cb66fa"
+        };
+        // Initialize Firebase
+        var radar_db = firebase.initializeApp(firebaseConfig1, 'Radar');
+    </script>
+    <script>
+        // Your web app's Firebase configuration
+        var firebaseConfig2 = {
             apiKey: "AIzaSyCHDRcZbzdUf9SBq-SYbMxhUQohSOU04Vg",
             authDomain: "data-personal-histogram.firebaseapp.com",
             databaseURL: "https://data-personal-histogram-default-rtdb.firebaseio.com",
@@ -558,7 +645,7 @@
             appId: "1:849374921172:web:55b30f672b0b9aec691641"
         };
         // Initialize Firebase
-        var try_db = firebase.initializeApp(firebaseConfig, 'Try');
+        var try_db = firebase.initializeApp(firebaseConfig2, 'Try');
     </script>
     <script>
         // Your web app's Firebase configuration

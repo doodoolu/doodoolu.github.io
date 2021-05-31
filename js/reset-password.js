@@ -3,9 +3,8 @@ var student_id = document.getElementById('studentID')
 var old_pw = document.getElementById('oldPassword')
 var new_pw = document.getElementById('newPassword')
 var confirm_pw = document.getElementById('confirmPassword')
-
-var o = 0
 var message = document.getElementById('displayMessage')
+
 
 function checkPasswordValid() {
     if (student_id.value.length == 0) {

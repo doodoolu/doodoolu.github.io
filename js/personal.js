@@ -27,12 +27,10 @@ function initializeBoxes() {
     page_db.database().ref().on('value', snapshot => {
         let snap = snapshot.val()
         let user_info = snap[user]
-        console.log(snap)
         let interval_time = user_info['max_interval'].match(/(\d+)\s(days)\s(\d+):(\d+):(\d+)/)
 
-        //max_interval.textContent = interval_time[1] + ' days ' + (parseInt(interval_time[3]) + parseFloat(interval_time[4]) / 60 + parseFloat(interval_time[5]) / 3600).toFixed(1).toString() + ' hour(s) ' // + interval_time[4] + ' minute(s) ' + interval_time[5] + ' second(s)'
         max_interval.textContent = (parseInt(interval_time[1]) * 24 + parseInt(interval_time[3]) +
-                parseFloat(interval_time[4]) / 60 + parseFloat(interval_time[5]) / 3600).toFixed(2).toString() + ' hours ' // + interval_time[4] + ' minute(s) ' + interval_time[5] + ' second(s)'
+                parseFloat(interval_time[4]) / 60 + parseFloat(interval_time[5]) / 3600).toFixed(0).toString() + ' hours ' // + interval_time[4] + ' minute(s) ' + interval_time[5] + ' second(s)'
         let ac_hour = (user_info['best_working_time'].match(/(\d+),\s(\d+)/))
         ac_rate_max.textContent = ('0' + ac_hour[1]).slice(-2) + ':00 ~ ' + ac_hour[2] + ':00'
         let submit_hour = user_info['most_submission_period'].match(/(\d+),\s(\d+)/)
@@ -44,13 +42,155 @@ function initializeBoxes() {
                 parseFloat(hw_debug[4]) / 60 + parseFloat(hw_debug[5]) / 3600)
 
         }
-        total_debug_time.textContent = sum_debug.toFixed(2) + 'hours';
+        total_debug_time.textContent = sum_debug.toFixed(0) + ' hours';
     })
 
 }
 initializeBoxes();
 
+function createRadarChart(ctx, labels, data) {
+    var radar = new Chart(ctx, {
+        type: 'radar',
+        data: {
+            labels: labels,
+            datasets: [{
+                    lineTension: 0,
+                    backgroundColor: "rgba(78, 115, 223, 0.2)",
+                    borderColor: "rgba(78, 115, 223, 1)",
+                    pointRadius: 3,
+                    pointBackgroundColor: "rgba(78, 115, 223, 1)",
+                    pointBorderColor: "rgba(78, 115, 223, 1)",
+                    pointHoverRadius: 5,
+                    pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
+                    pointHoverBorderColor: "rgba(78, 115, 223, 1)",
+                    data: data
+                },
 
+            ],
+        },
+        options: {
+            scale: {
+                ticks: {
+                    beginAtZero: true,
+                    max: 100
+                },
+                gridLines: {
+                    //color: ['black', 'red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'black', 'red', 'orange', 'yellow', 'green', 'blue', 'indigo']
+                },
+
+                pointLabels: {
+                    display: !/Android|webOS|iPhone|iPad/i.test(navigator.userAgent),
+                    fontSize: 24
+                }
+
+            },
+
+            maintainAspectRatio: false,
+            layout: {
+                padding: {
+                    left: 10,
+                    right: 25,
+                    top: 10,
+                    bottom: 0
+                }
+            },
+            legend: {
+                display: false
+            },
+
+            tooltips: {
+                backgroundColor: "rgb(255,255,255)",
+                bodyFontColor: "#858796",
+                titleMarginBottom: 10,
+                titleFontColor: '#6e707e',
+                titleFontSize: 14,
+                borderColor: '#dddfeb',
+                borderWidth: 1,
+                xPadding: 15,
+                yPadding: 15,
+                displayColors: false,
+                intersect: false,
+                mode: 'index',
+                caretPadding: 10,
+                callbacks: {
+                    title: (tooltipItem, data) => data.labels[tooltipItem[0].index],
+                    label: function(context) {
+                        return parseFloat(context.value).toFixed(0);
+                    }
+                }
+
+            },
+
+        }
+
+    });
+    return radar;
+
+}
+
+function initalizeRadarChart() {
+    let ctx = document.getElementById('radar');
+    return new Promise((resolve, reject) => {
+
+        radar_db.database().ref().on('value', snapshot => {
+            let snap = snapshot.val()
+            let user_info = snap[user]
+            let labels = ['精確度', '難題大師', '完成度', '細心度', '效率']
+            let data = Object.values(user_info)
+            let multiplier = [1, 1.2, 1.2, 0.8, 0.8]
+            let data_weighted = []
+            for (let i = 0; i < 5; i++) {
+                data[i] = ((1 - parseFloat(data[i])) * 100)
+                data_weighted.push(data[i] * multiplier[i])
+
+            }
+            createRadarChart(ctx, labels, data)
+
+            resolve(data_weighted.reduce((a, b) => parseFloat(a) + parseFloat(b), 0))
+        })
+    })
+}
+
+async function displayRank() {
+    let total_score = await initalizeRadarChart();
+    console.log(total_score)
+    let img = document.getElementById('rank_image');
+    let description = document.getElementById('rank_description');
+    let header = document.getElementById('rank_header');
+    if (/Android|webOS|iPhone|iPad/i.test(navigator.userAgent)) {
+        header.style.fontSize = '2rem';
+        description.style.fontSize = '1rem';
+    }
+
+    if (total_score >= 400) {
+        img.setAttribute('src', './img/dynamax_charizard.png')
+        header.textContent = '你是...\n超極巨化噴火龍！'
+        description.textContent = '挖挖挖挖靠！是超極巨化噴火龍欸，同學你是天才吧～可以跟我說你都吃什麼長大的嗎?'
+
+
+    } else if (total_score >= 300) {
+        img.setAttribute('src', './img/mega_charizard.png')
+        header.textContent = '你是...\nMega噴火龍！'
+        description.textContent = '挖賽！是Mega噴火龍欸，同學你是第一次學程式嗎？作業不可能難倒你吧'
+
+    } else if (total_score >= 200) {
+        img.setAttribute('src', './img/charizard.png')
+        header.textContent = '你是...噴火龍！'
+        description.textContent = '挖～是噴火龍欸，同學你不用謙虛了，你已經掌握到Python的精隨了～'
+
+    } else if (total_score >= 100) {
+        img.setAttribute('src', './img/charmeleon.png')
+        header.textContent = '你是...火恐龍！'
+        description.textContent = '蛤～你是火恐龍，同學你的修練之路還很長，要再加把勁阿～'
+
+    } else if (total_score < 100) {
+        img.setAttribute('src', './img/charmander.png')
+        header.textContent = '你是...小火龍！'
+        description.textContent = 'ㄜㄜㄜ～你還是小火龍，同學你家沒有網路嗎？可憐阿～'
+    }
+
+}
+displayRank()
 
 
 function createBarChart(ctx, labels, data) {
@@ -61,7 +201,7 @@ function createBarChart(ctx, labels, data) {
             datasets: [{
                 barPercentage: 0.6,
                 data: data,
-                backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc', 'red', 'gold', 'DodgerBlue', 'Navy'],
+                backgroundColor: ['#F94144', '#F8961E', '#F9C74F', '#90BE6D', '#43AA8B', '#577590'],
                 hoverBorderColor: "rgba(234, 236, 244, 1)",
             }],
         },
@@ -211,7 +351,7 @@ async function initializeProgressBar() {
 
     for (let i = 0; i < 5; i++) {
         progress_bar[i].style.width = user_percent['HW' + (i + 1).toString() + ' Total Score'].toString() + '%';
-        progress_percentage[i].textContent = user_percent['HW' + (i + 1).toString() + ' Total Score'].toString() + '%'
+        progress_percentage[i].textContent = user_percent['HW' + (i + 1).toString() + ' Total Score'].toString() + '分'
         hw_name[i].childNodes[0].textContent = 'HW' + (i + 1).toString();
 
     }
@@ -239,8 +379,8 @@ async function initializeProgressBar() {
                 }
                 for (let j = 0; j < HW_NO; j++) {
                     progress_bar = percentage_chart.querySelectorAll('[role="progressbar"]');
-                    progress_bar[j].style.width = user_percent['HW' + (j + 1).toString() + ' Total Score'].toString() + '%';
-                    progress_percentage[j].textContent = user_percent['HW' + (j + 1).toString() + ' Total Score'].toString() + '%'
+                    progress_bar[j].style.width = user_percent['HW' + (j + 1).toString() + ' Total Score'].toString() + '%'
+                    progress_percentage[j].textContent = user_percent['HW' + (j + 1).toString() + ' Total Score'].toString() + '分'
                     dropdown_button_name.textContent = '所有題目';
                     hw_name[j].childNodes[0].textContent = 'HW' + (j + 1).toString();
 
@@ -259,7 +399,7 @@ async function initializeProgressBar() {
                 }
                 for (let j = 0; j < 5; j++) {
                     progress_bar[j].style.width = (user_percent['HW' + (i).toString() + '-' + (j + 1).toString()] * 5).toString() + '%';
-                    progress_percentage[j].textContent = user_percent['HW' + (i).toString() + '-' + (j + 1).toString()].toString() + '%'
+                    progress_percentage[j].textContent = user_percent['HW' + (i).toString() + '-' + (j + 1).toString()].toString() + '分'
                     dropdown_button_name.textContent = 'HW ' + i.toString();
                     hw_name[j].childNodes[0].textContent = 'Problem ' + i.toString() + '-' + (j + 1).toString();
 
@@ -283,11 +423,9 @@ function createLineChart(ctx, labels, data, data_label) {
                 label: data_label[0],
                 lineTension: 0,
                 borderWidth: 2,
-                //backgroundColor: "rgba(78, 115, 223, 0.05)",
-                borderColor: "rgb(68,114,196)",
+                borderColor: "#F94144",
                 pointRadius: 0,
-                pointBackgroundColor: "rgba(78, 115, 223, 0.05",
-                //pointBorderColor: "rgba(78, 115, 223, 1)",
+                pointBackgroundColor: "#F94144",
                 pointHoverRadius: 0,
                 pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
                 pointHoverBorderColor: "rgba(78, 115, 223, 1)",
@@ -299,11 +437,9 @@ function createLineChart(ctx, labels, data, data_label) {
                 label: data_label[1],
                 lineTension: 0,
                 borderWidth: 2,
-                //backgroundColor: "rgba(78, 115, 223, 0.05)",
-                borderColor: "red",
+                borderColor: "#F9C74F",
                 pointRadius: 0,
-                pointBackgroundColor: "red",
-                //pointBorderColor: "rgba(78, 115, 223, 1)",
+                pointBackgroundColor: "#F9C74F",
                 pointHoverRadius: 0,
                 pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
                 pointHoverBorderColor: "rgba(78, 115, 223, 1)",
@@ -315,11 +451,9 @@ function createLineChart(ctx, labels, data, data_label) {
                 label: data_label[2],
                 lineTension: 0,
                 borderWidth: 2,
-                // backgroundColor: "rgba(78, 115, 223, 0.05)",
-                borderColor: "green",
+                borderColor: "#90BE6D",
                 pointRadius: 0,
-                pointBackgroundColor: "green",
-                //pointBorderColor: "rgba(78, 115, 223, 1)",
+                pointBackgroundColor: "#90BE6D",
                 pointHoverRadius: 0,
                 pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
                 pointHoverBorderColor: "rgba(78, 115, 223, 1)",
@@ -331,11 +465,9 @@ function createLineChart(ctx, labels, data, data_label) {
                 label: data_label[3],
                 lineTension: 0,
                 borderWidth: 2,
-                //backgroundColor: "rgba(78, 115, 223, 0.05)",
-                borderColor: "rgb(237,125,49)",
+                borderColor: "#43AA8B",
                 pointRadius: 0,
-                pointBackgroundColor: "rgb(237,125,49)",
-                // pointBorderColor: "rgba(78, 115, 223, 1)",
+                pointBackgroundColor: "#43AA8B",
                 pointHoverRadius: 0,
                 pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
                 pointHoverBorderColor: "rgba(78, 115, 223, 1)",
@@ -347,11 +479,9 @@ function createLineChart(ctx, labels, data, data_label) {
                 label: data_label[4],
                 lineTension: 0,
                 borderWidth: 2,
-                //backgroundColor: "rgba(78, 115, 223, 0.05)",
-                borderColor: "violet",
+                borderColor: "#577590",
                 pointRadius: 0,
-                pointBackgroundColor: "violet",
-                //pointBorderColor: "rgba(78, 115, 223, 1)",
+                pointBackgroundColor: "#577590",
                 pointHoverRadius: 0,
                 pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
                 pointHoverBorderColor: "rgba(78, 115, 223, 1)",
@@ -387,7 +517,8 @@ function createLineChart(ctx, labels, data, data_label) {
                     ticks: {
                         callback: function(value, index, values) {
                             return value.slice(5, value.length).replace('-', '/');
-                        }
+                        },
+                        maxTicksLimit: 11
                     }
                 }],
                 yAxes: [{
@@ -432,6 +563,11 @@ function createLineChart(ctx, labels, data, data_label) {
                 intersect: false,
                 mode: 'index',
                 caretPadding: 10,
+                callbacks: {
+                    title: function(tooltipItems, data) {
+                        return tooltipItems[0].xLabel.slice(5, tooltipItems[0].xLabel.length).replace('-', '/');;
+                    }
+                }
             }
         }
 

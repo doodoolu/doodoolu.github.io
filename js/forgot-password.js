@@ -49,8 +49,8 @@ function sendEmail(email, pw) {
         Password: "pwsfinal2021",
         To: email,
         From: "PWS期末第三組 pwsfinalproject@gmail.com",
-        Subject: "Resend Password",
-        Body: "Here's your password: " + pw
+        Subject: "[PWS Final Project] 找回密碼",
+        Body: email.slice(0, 9) + "您好，<br /><br />您的使用者密碼是： " + pw + "<br />請妥善保存喔～<br /><br />誰是佼佼者團隊 敬上"
     }).then(function() {
             reset_pw.textContent = 'Mail sent! Please check your NTU mail inbox!'
             reset_pw.style.color = 'green'

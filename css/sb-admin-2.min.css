@@ -44,6 +44,22 @@
     --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
+.google-slides-container {
+    position: relative;
+    width: 100%;
+    padding-top: 60%;
+    overflow: hidden;
+}
+
+.google-slides-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: auto;
+    width: 100%;
+    height: 100%;
+}
+
 .middlepurple {
     color: #E288B3;
 }
@@ -9983,6 +9999,7 @@ a.text-dark:hover,
 a.text-dark:focus {
     color: #373840 !important;
 }
+
 .text-yellow {
     color: #fef8a0 !important;
 }
@@ -9991,37 +10008,46 @@ a.text-yellow:hover,
 a.text-yellow:focus {
     color: #fef8a0 !important;
 }
+
 .text-color1 {
-    color: #BB585E !important;
+    color: #F94144 !important;
 }
+
 .text-color2 {
     color: #E388B3 !important;
 }
+
 .text-color3 {
     color: #ECCED0 !important;
 }
+
 .text-color4 {
-    color: #D4BAAD !important;
+    color: #F8961E !important;
 }
+
 .text-color5 {
     color: #AD8871 !important;
 }
+
 .text-color6 {
-    color: #FEF686 !important;
+    color: #F9C74F !important;
 }
+
 .text-color7 {
-    color: #D7E6D3 !important;
+    color: #90BE6D !important;
 }
+
 .text-color8 {
     color: #CADFE4 !important;
 }
+
 .text-color9 {
-    color: #89ACB2 !important;
-}
-.text-color10 {
-    color: #487980 !important;
+    color: #43AA8B !important;
 }
 
+.text-color10 {
+    color: #577590 !important;
+}
 
 .text-body {
     color: #858796 !important;
@@ -10429,6 +10455,7 @@ border-left-primary {
 .border-left-success {
     border-left: 0.25rem solid #D0B3BF;
 }
+
 .border-left-color4 {
     border-left: 0.25rem solid #D4BAAD;
 }
@@ -10444,6 +10471,7 @@ border-left-primary {
 .border-left-color3 {
     border-left: 0.25rem solid #ECCED0;
 }
+
 .border-left-color1 {
     border-left: 0.25rem solid #BB585E;
 }
@@ -10451,6 +10479,7 @@ border-left-primary {
 .border-left-color9 {
     border-left: 0.25rem solid #89ACB2;
 }
+
 .border-left-color5 {
     border-left: 0.25rem solid #AD8871;
 }
@@ -11266,23 +11295,23 @@ border-left-primary {
 }
 
 .bg-login-image {
-    background: url("../img/jingguolin.jpg");
+    background: url("../img/lin.jpg");
     background-position: center;
     background-size: cover;
 }
 
 .bg-register-image {
-    background: url("../img/jingguolin.jpg");
+    background: url("../img/lin.jpg");
     background-position: center;
     background-size: cover;
 }
 
 .bg-password-image {
-    background: url("../img/jingguolin.jpg");
+    background: url("../img/lin.jpg");
     background-position: center;
     background-size: cover;
     position: relative;
-    height: 600px;
+    height: 500px;
 }
 
 form.user .custom-checkbox.small label {
