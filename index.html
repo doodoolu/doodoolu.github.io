@@ -88,7 +88,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="personal.html">
                     <i class="fas fa-fw fa-chart-area"></i>
-                    <span>觀察報告</span></a>
+                    <span>個人報告</span></a>
             </li>
 
             <!-- Nav Item - Tables -->
@@ -376,7 +376,7 @@
                                 <!-- Card Header - Dropdown -->
 
                                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">作業ac人數比例</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">作業AC人數比例</h6>
                                     <!--
                                     <div class="dropdown no-arrow">
                                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
@@ -816,6 +816,48 @@
                     </div>
                     <!-- Content Row -->
 
+                    <div class="row">
+                        <div class="col-xl-12 col-lg-7">
+                            <!-- Bar Chart -->
+                            <div class="card shadow mb-3 ">
+                                <!-- Card Header - Dropdown -->
+                                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h6 class="m-0 font-weight-bold text-primary">五題的繳交狀況</h6>
+                                    <div class="dropdown no-arrow">
+                                        <button class="btn btn-secondary dropdown-toggle" type="button" id="percent_button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        HW1                                    
+                                    </button>
+                                        <div id='submit_dropdown' class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                                            <div class="dropdown-header">作業選項:</div>
+
+                                            <!-- <button class="dropdown-item">所有題目</button>
+                                            <div class="dropdown-divider"></div> -->
+                                            <button class="dropdown-item">HW 1</button>
+                                            <button class="dropdown-item">HW 2</button>
+                                            <button class="dropdown-item">HW 3</button>
+                                            <button class="dropdown-item">HW 4</button>
+                                            <button class="dropdown-item">HW 5</button>
+                                            <button class="dropdown-item">HW 6</button>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="card-body">
+                                    <div class='chart-area'>
+                                        <canvas id="submit_canvas"></canvas>
+                                    </div>
+
+                                    <hr> 本圖描述每項作業的繳交狀況，分別呈現使用者每題作業的繳交狀況。
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
 
 
 
