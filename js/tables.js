@@ -19,35 +19,6 @@ logout.onclick = function() {
 
 var current_time = Date.now()
 
-// query.once("value").then(function(snapshot) {
-//     var trValues = Object.values(snapshot.val())
-//     for (var i = 0; i < trValues.length; i++) {
-//         var tr = document.createElement("tr");
-
-//         for (var j = 0; j < title.length; j++) {
-//             var td = document.createElement("td");
-//             td.textContent = trValues[i][title[j]];
-//             tr.appendChild(td);
-//         }
-//         table.appendChild(tr);
-//     }
-//     fragment.appendChild(table);
-
-//     $(document).ready(function() {
-//         $('#dataTable').DataTable({});
-//         var passed = Date.now() - current_time
-//         load.textContent = 'Loading complete! Used ' + (passed / 1000).toString() + ' seconds. \nThis message will disappear after 5 seconds.'
-//         load.style.color = 'green'
-//         var timer = setInterval(function() {
-//             load.parentNode.removeChild(load)
-//             clearInterval(timer)
-//         }, 5000);
-//     });
-
-
-
-// })
-
 function getTable() {
     var table = document.createElement("tbody");
     var title = ['When', 'ID', 'Status', 'Problem', 'Time', 'Memory', 'Language', 'Author', 'HW']
@@ -83,7 +54,7 @@ async function displayTable() {
     $(document).ready(function() {
         $('#dataTable').DataTable({});
         var passed = Date.now() - current_time
-        load.textContent = 'Loading complete! Used ' + (passed / 1000).toString() + ' seconds. \nThis message will disappear after 5 seconds.'
+        load.textContent = '準備完畢! 花了 ' + (passed / 1000).toString() + '秒. \n這個訊息五秒後就會自動消失'
         load.style.color = 'green'
         var timer = setInterval(function() {
             load.parentNode.removeChild(load)
