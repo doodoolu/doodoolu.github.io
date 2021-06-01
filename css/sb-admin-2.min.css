@@ -11311,6 +11311,7 @@ border-left-primary {
     background: url("../img/lin.jpg");
     background-position: center;
     background-size: cover;
+    height: 512.97px;
 }
 
 .bg-password-image {
@@ -11318,7 +11319,7 @@ border-left-primary {
     background-position: center;
     background-size: cover;
     position: relative;
-    height: 500px;
+    height: 512.97px;
 }
 
 form.user .custom-checkbox.small label {

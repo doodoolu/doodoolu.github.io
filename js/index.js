@@ -1,5 +1,5 @@
 var user = localStorage['User'];
-const HW_NO = 5;
+const HW_NO = 6;
 if (user == null) {
     window.location.href = './login.html';
 
@@ -295,17 +295,238 @@ function initializeMultiChart() {
 
     })
 
-    // var myBarExtend = Chart.controllers.bar.prototype.draw;
-
-    // Chart.helpers.extend(Chart.controllers.bar.prototype, {
-    //     draw: function() {
-    //         myBarExtend.apply(this, arguments);
-    //         var xOffset = 15;
-    //         var yOffset = 10
-    //         multiChart.getContext('2d').fillStyle = "gray";
-    //         multiChart.getContext('2d').fillText('人數', xOffset, yOffset);
-    //     }
-    // });
-
 }
 initializeMultiChart()
+
+function createLineChart(ctx, labels, data, data_label) {
+    let LineChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [{
+                fill: false,
+                label: data_label[0],
+                lineTension: 0,
+                borderWidth: 2,
+                borderColor: "#F94144",
+                pointRadius: 0,
+                pointBackgroundColor: "#F94144",
+                pointHoverRadius: 0,
+                pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
+                pointHoverBorderColor: "rgba(78, 115, 223, 1)",
+                pointHitRadius: 10,
+                pointBorderWidth: 2,
+                data: data[0]
+            }, {
+                fill: false,
+                label: data_label[1],
+                lineTension: 0,
+                borderWidth: 2,
+                borderColor: "#F9C74F",
+                pointRadius: 0,
+                pointBackgroundColor: "#F9C74F",
+                pointHoverRadius: 0,
+                pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
+                pointHoverBorderColor: "rgba(78, 115, 223, 1)",
+                pointHitRadius: 10,
+                pointBorderWidth: 2,
+                data: data[1]
+            }, {
+                fill: false,
+                label: data_label[2],
+                lineTension: 0,
+                borderWidth: 2,
+                borderColor: "#90BE6D",
+                pointRadius: 0,
+                pointBackgroundColor: "#90BE6D",
+                pointHoverRadius: 0,
+                pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
+                pointHoverBorderColor: "rgba(78, 115, 223, 1)",
+                pointHitRadius: 10,
+                pointBorderWidth: 2,
+                data: data[2]
+            }, {
+                fill: false,
+                label: data_label[3],
+                lineTension: 0,
+                borderWidth: 2,
+                borderColor: "#43AA8B",
+                pointRadius: 0,
+                pointBackgroundColor: "#43AA8B",
+                pointHoverRadius: 0,
+                pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
+                pointHoverBorderColor: "rgba(78, 115, 223, 1)",
+                pointHitRadius: 10,
+                pointBorderWidth: 2,
+                data: data[3]
+            }, {
+                fill: false,
+                label: data_label[4],
+                lineTension: 0,
+                borderWidth: 2,
+                borderColor: "#577590",
+                pointRadius: 0,
+                pointBackgroundColor: "#577590",
+                pointHoverRadius: 0,
+                pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
+                pointHoverBorderColor: "rgba(78, 115, 223, 1)",
+                pointHitRadius: 10,
+                pointBorderWidth: 2,
+                data: data[4]
+            }],
+        },
+        options: {
+            hover: {
+                intersect: false,
+            },
+            maintainAspectRatio: false,
+            layout: {
+                padding: {
+                    left: 10,
+                    right: 25,
+                    top: 25,
+                    bottom: 0
+                }
+            },
+            scales: {
+                xAxes: [{
+                    gridLines: {
+                        display: false,
+                        drawBorder: false
+                    },
+                    scaleLabel: {
+                        display: !/Android|webOS|iPhone|iPad/i.test(navigator.userAgent),
+                        labelString: '日期'
+                    },
+
+                    ticks: {
+                        callback: function(value, index, values) {
+                            return value.slice(5, value.length).replace('-', '/');
+                        },
+                        maxTicksLimit: 11,
+                        maxRotation: 0,
+                        minRotation: 0
+                    }
+                }],
+                yAxes: [{
+                    ticks: {
+                        padding: 10,
+
+                    },
+                    gridLines: {
+                        color: "rgb(234, 236, 244)",
+                        zeroLineColor: "rgb(234, 236, 244)",
+                        drawBorder: false,
+                        borderDash: [2],
+                        zeroLineBorderDash: [2]
+                    },
+                    scaleLabel: {
+                        display: !/Android|webOS|iPhone|iPad/i.test(navigator.userAgent),
+                        labelString: 'AC次數'
+                    }
+
+
+                }],
+            },
+            legend: {
+                display: !/Android|webOS|iPhone|iPad/i.test(navigator.userAgent),
+                labels: {
+                    boxWidth: 10,
+                },
+                position: 'right'
+
+            },
+            tooltips: {
+                backgroundColor: "rgb(255,255,255)",
+                bodyFontColor: "#858796",
+                titleMarginBottom: 10,
+                titleFontColor: '#6e707e',
+                titleFontSize: 14,
+                borderColor: '#dddfeb',
+                borderWidth: 1,
+                xPadding: 15,
+                yPadding: 15,
+                displayColors: false,
+                intersect: false,
+                mode: 'index',
+                caretPadding: 10,
+                callbacks: {
+                    title: function(tooltipItems, data) {
+                        return tooltipItems[0].xLabel.slice(5, tooltipItems[0].xLabel.length).replace('-', '/');
+                    },
+                    label: function(tooltipItem, data) {
+                        return data.datasets[tooltipItem.datasetIndex].label + ': ' + tooltipItem.yLabel + '次'
+                    }
+                }
+            }
+        }
+
+    })
+    return LineChart;
+};
+
+function updateLineChart(data, labels, lineChart, hw_name) {
+    lineChart.data.labels = labels;
+    for (let i = 0; i < 5; i++) {
+        lineChart.data.datasets[i].data = data[i];
+        lineChart.data.datasets[i].label = hw_name[i];
+    }
+    lineChart.update();
+
+}
+
+function getIndex(arr) {
+    for (let i = 0; i < arr.length; i++) {
+        if (arr[i] != -1) {
+            var top = i
+            break
+        }
+    }
+    for (let i = arr.length - 1; i >= 0; i--) {
+        if (arr[i] != -1) {
+            var bottom = i
+            break
+        }
+    }
+    return [top, bottom]
+}
+
+function getLineChartData() {
+    return new Promise((resolve, reject) => {
+        chart_db.database().ref().on('value', snapshot => {
+            let snap = snapshot.val();
+            resolve(snap);
+        })
+    })
+}
+
+async function initializeLineChart() {
+    let submit_canvas = document.getElementById('submit_canvas');
+    let submit_dropdown = document.getElementById('submit_dropdown').getElementsByTagName('button');
+    let info = await getLineChartData();
+    let data_label = Object.keys(info)
+
+    let hw1_index = getIndex(Object.values(info['HW1-1']))
+    let hw1_data = []
+    let hw1_labels = Object.keys(info['HW1-1']).slice(hw1_index[0], hw1_index[1] + 1)
+    for (let j = 1; j < 6; j++) {
+        hw1_data.push(Object.values(info['HW1-' + j.toString()]).slice(hw1_index[0], hw1_index[1] + 1))
+    }
+    var lineChart = createLineChart(submit_canvas, hw1_labels, hw1_data, data_label.slice(0, 5))
+    for (let i = 0; i < HW_NO; i++) {
+        let data = []
+        let index = getIndex(Object.values(info['HW' + (i + 1).toString() + '-1']))
+        let labels = Object.keys(info['HW' + (i + 1).toString() + '-1']).slice(index[0], index[1] + 1)
+
+        for (let j = 1; j < 6; j++) {
+            data.push(Object.values(info['HW' + (i + 1).toString() + '-' + j.toString()]).slice(index[0], index[1] + 1))
+        }
+        submit_dropdown[i].onclick = function() {
+            document.getElementById('submit_dropdown').parentNode.getElementsByTagName('button')[0].textContent = 'HW' + (i + 1).toString()
+            updateLineChart(data, labels, lineChart, data_label.slice(i * 5, i * 5 + 5));
+
+        }
+
+    }
+}
+initializeLineChart();

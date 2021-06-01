@@ -20,7 +20,7 @@
 
 </head>
 
-<body id="page-top">
+<body id="page-top" style="visibility: hidden;">
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -349,14 +349,14 @@
                                         <div class="col-xl-12 mb-4 ">
                                             <div class="row">
                                                 <div class="col-xl-12 ">
-                                                    <div class="card shadow mb-3">
+                                                    <div class="card shadow ">
                                                         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between ">
                                                             <h6 class="m-0 font-weight-bold text-primary ">您的戰力指數</h6>
                                                         </div>
                                                         <div class="card-body" style="height: 50rem;">
 
                                                             <div class="chart-area" style="min-height: 100%;">
-                                                                <canvas id="radar" style="max-width: 100%;"></canvas>
+                                                                <canvas id="radar"></canvas>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -382,9 +382,9 @@
 
 
                     <div class="row">
-                        <div class="col-xl-6 ">
+                        <div class="col-xl-6 mb-4 ">
                             <!-- Bar Chart -->
-                            <div class="card shadow mb-3 ">
+                            <div class="card shadow ">
                                 <!-- Card Header - Dropdown -->
                                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                                     <h6 class="m-0 font-weight-bold text-primary">努力次數(長條圖)</h6>
@@ -420,9 +420,9 @@
                             </div>
 
                         </div>
-                        <div class="col-xl-6 ">
+                        <div class="col-xl-6  mb-4">
 
-                            <div class="card shadow mb-4 ">
+                            <div class="card shadow " style="height: 100%">
                                 <!-- Card Header - Dropdown -->
                                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                                     <h6 class="m-0 font-weight-bold text-primary">各作業完成比例</h6>
@@ -446,7 +446,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div id='hw_percentage' class="card-body" style="min-height: 100%; width: 100%;">
+                                <div id='hw_percentage' class="card-body">
                                     <h4 class="small font-weight-bold">HW 1 <span class="float-right">0%</span></h4>
                                     <div class="progress mb-4">
                                         <div class="progress-bar " style="background-color: #F94144;" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
@@ -508,8 +508,8 @@
                                 </div>
 
                                 <!-- Card Body -->
-                                <div class="row">
-                                    <div class="card-body col-xl-12">
+                                <div class="row ">
+                                    <div class="card-body col-xl-12 ">
                                         <div class="google-slides-container">
                                             <iframe src="https://docs.google.com/presentation/d/e/2PACX-1vShbLxaqqS19_CM5EcIdtRaVXoPE0MglekwP5d0-DwkzIc7pWrRKobC8gk6UXkinzU2po98oJL61eCz/embed?start=false&loop=true&delayms=60000" frameborder="0" width="944" height="569" allowfullscreen="true" mozallowfullscreen="true"
                                                 webkitallowfullscreen="true"></iframe>
@@ -521,7 +521,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
 
 
                 </div>
@@ -586,6 +586,20 @@
     <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-database.js"></script>
     <script>
         // Your web app's Firebase configuration
+        var firebaseConfig5 = {
+            apiKey: "AIzaSyDWbADBm5aewJO98BLx4c54COL5ZlqbStk",
+            authDomain: "data-personal-page.firebaseapp.com",
+            databaseURL: "https://data-personal-page-default-rtdb.firebaseio.com",
+            projectId: "data-personal-page",
+            storageBucket: "data-personal-page.appspot.com",
+            messagingSenderId: "421559772073",
+            appId: "1:421559772073:web:4c3bdaab517fa5a47cdab8"
+        };
+        // Initialize Firebase
+        var page_db = firebase.initializeApp(firebaseConfig5, 'Page');
+    </script>
+    <script>
+        // Your web app's Firebase configuration
         var firebaseConfig1 = {
             apiKey: "AIzaSyDrxZJZ3k674-H2POQZbvFiHVTeFDslRMw",
             authDomain: "data-personal-radar.firebaseapp.com",
@@ -627,35 +641,8 @@
         // Initialize Firebase
         var rankings_db = firebase.initializeApp(firebaseConfig3, 'Rankings');
     </script>
-    <script>
-        // Your web app's Firebase configuration
-        var firebaseConfig4 = {
-            apiKey: "AIzaSyDp8Dwa7HQK1B4f2B_olY4xsesYpstBJQw",
-            authDomain: "data-total-ac.firebaseapp.com",
-            databaseURL: "https://data-total-ac-default-rtdb.firebaseio.com",
-            projectId: "data-total-ac",
-            storageBucket: "data-total-ac.appspot.com",
-            messagingSenderId: "453473505899",
-            appId: "1:453473505899:web:9980ace523dadff20a972e"
-        };;
 
-        // Initialize Firebase
-        var chart_db = firebase.initializeApp(firebaseConfig4, 'Chart');
-    </script>
-    <script>
-        // Your web app's Firebase configuration
-        var firebaseConfig5 = {
-            apiKey: "AIzaSyDWbADBm5aewJO98BLx4c54COL5ZlqbStk",
-            authDomain: "data-personal-page.firebaseapp.com",
-            databaseURL: "https://data-personal-page-default-rtdb.firebaseio.com",
-            projectId: "data-personal-page",
-            storageBucket: "data-personal-page.appspot.com",
-            messagingSenderId: "421559772073",
-            appId: "1:421559772073:web:4c3bdaab517fa5a47cdab8"
-        };
-        // Initialize Firebase
-        var page_db = firebase.initializeApp(firebaseConfig5, 'Page');
-    </script>
+
     <!-- Page level custom scripts -->
     <script src="./js/personal.js"></script>
 </body>

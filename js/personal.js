@@ -1,5 +1,5 @@
 var user = localStorage['User'];
-const HW_NO = 5
+const HW_NO = 6
 
 if (user == null) {
     window.location.href = './login.html';
@@ -32,9 +32,9 @@ function initializeBoxes() {
         max_interval.textContent = (parseInt(interval_time[1]) * 24 + parseInt(interval_time[3]) +
                 parseFloat(interval_time[4]) / 60 + parseFloat(interval_time[5]) / 3600).toFixed(0).toString() + ' hours ' // + interval_time[4] + ' minute(s) ' + interval_time[5] + ' second(s)'
         let ac_hour = (user_info['best_working_time'].match(/(\d+),\s(\d+)/))
-        ac_rate_max.textContent = ('0' + ac_hour[1]).slice(-2) + ':00 ~ ' + ac_hour[2] + ':00'
+        ac_rate_max.textContent = ('0' + ac_hour[1]).slice(-2) + ':00 ~ ' + ('0' + ac_hour[2].slice(-2)) + ':00'
         let submit_hour = user_info['most_submission_period'].match(/(\d+),\s(\d+)/)
-        most_submit_times.textContent = ('0' + submit_hour[1]).slice(-2) + ':00 ~ ' + submit_hour[2] + ':00'
+        most_submit_times.textContent = ('0' + submit_hour[1]).slice(-2) + ':00 ~ ' + ('0' + submit_hour[2]).slice(-2) + ':00'
         let sum_debug = 0;
         for (let i = 1; i <= HW_NO; i++) {
             let hw_debug = user_info['HW' + i.toString() + '_debugtime'].match(/(\d+)\s(days)\s(\d+):(\d+):(\d+)/)
@@ -137,7 +137,7 @@ function initalizeRadarChart() {
             let user_info = snap[user]
             let labels = ['精確度', '難題大師', '完成度', '細心度', '效率']
             let data = Object.values(user_info)
-            let multiplier = [1, 1.2, 1.2, 0.8, 0.8]
+            let multiplier = [1, 0.8, 1.2, 1.2, 0.8]
             let data_weighted = []
             for (let i = 0; i < 5; i++) {
                 data[i] = ((1 - parseFloat(data[i])) * 100)
@@ -145,7 +145,6 @@ function initalizeRadarChart() {
 
             }
             createRadarChart(ctx, labels, data)
-
             resolve(data_weighted.reduce((a, b) => parseFloat(a) + parseFloat(b), 0))
         })
     })
@@ -153,7 +152,6 @@ function initalizeRadarChart() {
 
 async function displayRank() {
     let total_score = await initalizeRadarChart();
-    console.log(total_score)
     let img = document.getElementById('rank_image');
     let description = document.getElementById('rank_description');
     let header = document.getElementById('rank_header');
@@ -176,17 +174,17 @@ async function displayRank() {
     } else if (total_score >= 200) {
         img.setAttribute('src', './img/charizard.png')
         header.textContent = '你是...噴火龍！'
-        description.textContent = '挖～是噴火龍欸，同學你不用謙虛了，你已經掌握到Python的精隨了～'
+        description.textContent = '挖～是噴火龍欸，同學不用謙虛，你已經掌握到Python的精隨了～'
 
     } else if (total_score >= 100) {
         img.setAttribute('src', './img/charmeleon.png')
         header.textContent = '你是...火恐龍！'
-        description.textContent = '蛤～你是火恐龍，同學你的修練之路還很長，要再加把勁阿～'
+        description.textContent = 'Hmmm～你是火恐龍，同學你的修練之路還很長，要再加把勁阿～'
 
     } else if (total_score < 100) {
         img.setAttribute('src', './img/charmander.png')
         header.textContent = '你是...小火龍！'
-        description.textContent = 'ㄜㄜㄜ～你還是小火龍，同學你家沒有網路嗎？可憐阿～'
+        description.textContent = '啊喔…你還是小火龍，同學可以多和教授、助教討論喔～'
     }
 
 }
@@ -248,23 +246,6 @@ function createBarChart(ctx, labels, data) {
     return submit_chart
 }
 
-function displayChart(ctx, hw_name) {
-    return new Promise((resolve, reject) => {
-        submit_db.database().ref().on('value', snapshot => {
-            let snap = snapshot.val()
-            let labels = Object.keys(snap[hw_name])
-            let data = Object.values(snap[hw_name])
-            let doughnut = createDoughnutChart(ctx, labels, data)
-            document.getElementById('datalabel' + hw_name.slice(-1)).textContent =
-                hw_name + '\nTotal Submit Times:\n' + data.reduce((a, b) => a + b, 0)
-            resolve(doughnut)
-        })
-
-
-    })
-
-}
-
 function updateBarChart(data, labels, barChart) {
     barChart.data.datasets[0].data = data;
     barChart.data.labels = labels;
@@ -303,7 +284,7 @@ async function initializeBarChart() {
     let data_all = data_ary[1];
     let labels = []
     for (let i = 0; i < HW_NO; i++) {
-        labels.push('Homework ' + (i + 1).toString())
+        labels.push('HW ' + (i + 1).toString())
     }
     let barChart = createBarChart(ctx, labels, data_all)
     try_name.textContent = '所有問題';
@@ -349,7 +330,7 @@ async function initializeProgressBar() {
     let user_percent = await getPercentData();
     let bar_6_exist = true;
 
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < HW_NO; i++) {
         progress_bar[i].style.width = user_percent['HW' + (i + 1).toString() + ' Total Score'].toString() + '%';
         progress_percentage[i].textContent = user_percent['HW' + (i + 1).toString() + ' Total Score'].toString() + '分'
         hw_name[i].childNodes[0].textContent = 'HW' + (i + 1).toString();
@@ -411,232 +392,3 @@ async function initializeProgressBar() {
 
 }
 initializeProgressBar();
-
-
-function createLineChart(ctx, labels, data, data_label) {
-    let LineChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: labels,
-            datasets: [{
-                fill: false,
-                label: data_label[0],
-                lineTension: 0,
-                borderWidth: 2,
-                borderColor: "#F94144",
-                pointRadius: 0,
-                pointBackgroundColor: "#F94144",
-                pointHoverRadius: 0,
-                pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
-                pointHoverBorderColor: "rgba(78, 115, 223, 1)",
-                pointHitRadius: 10,
-                pointBorderWidth: 2,
-                data: data[0]
-            }, {
-                fill: false,
-                label: data_label[1],
-                lineTension: 0,
-                borderWidth: 2,
-                borderColor: "#F9C74F",
-                pointRadius: 0,
-                pointBackgroundColor: "#F9C74F",
-                pointHoverRadius: 0,
-                pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
-                pointHoverBorderColor: "rgba(78, 115, 223, 1)",
-                pointHitRadius: 10,
-                pointBorderWidth: 2,
-                data: data[1]
-            }, {
-                fill: false,
-                label: data_label[2],
-                lineTension: 0,
-                borderWidth: 2,
-                borderColor: "#90BE6D",
-                pointRadius: 0,
-                pointBackgroundColor: "#90BE6D",
-                pointHoverRadius: 0,
-                pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
-                pointHoverBorderColor: "rgba(78, 115, 223, 1)",
-                pointHitRadius: 10,
-                pointBorderWidth: 2,
-                data: data[2]
-            }, {
-                fill: false,
-                label: data_label[3],
-                lineTension: 0,
-                borderWidth: 2,
-                borderColor: "#43AA8B",
-                pointRadius: 0,
-                pointBackgroundColor: "#43AA8B",
-                pointHoverRadius: 0,
-                pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
-                pointHoverBorderColor: "rgba(78, 115, 223, 1)",
-                pointHitRadius: 10,
-                pointBorderWidth: 2,
-                data: data[3]
-            }, {
-                fill: false,
-                label: data_label[4],
-                lineTension: 0,
-                borderWidth: 2,
-                borderColor: "#577590",
-                pointRadius: 0,
-                pointBackgroundColor: "#577590",
-                pointHoverRadius: 0,
-                pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
-                pointHoverBorderColor: "rgba(78, 115, 223, 1)",
-                pointHitRadius: 10,
-                pointBorderWidth: 2,
-                data: data[4]
-            }],
-        },
-        options: {
-            hover: {
-                intersect: false,
-            },
-            maintainAspectRatio: false,
-            layout: {
-                padding: {
-                    left: 10,
-                    right: 25,
-                    top: 25,
-                    bottom: 0
-                }
-            },
-            scales: {
-                xAxes: [{
-                    gridLines: {
-                        display: false,
-                        drawBorder: false
-                    },
-                    scaleLabel: {
-                        display: !/Android|webOS|iPhone|iPad/i.test(navigator.userAgent),
-                        labelString: '日期'
-                    },
-
-                    ticks: {
-                        callback: function(value, index, values) {
-                            return value.slice(5, value.length).replace('-', '/');
-                        },
-                        maxTicksLimit: 11
-                    }
-                }],
-                yAxes: [{
-                    ticks: {
-                        padding: 10,
-
-                    },
-                    gridLines: {
-                        color: "rgb(234, 236, 244)",
-                        zeroLineColor: "rgb(234, 236, 244)",
-                        drawBorder: false,
-                        borderDash: [2],
-                        zeroLineBorderDash: [2]
-                    },
-                    scaleLabel: {
-                        display: !/Android|webOS|iPhone|iPad/i.test(navigator.userAgent),
-                        labelString: '繳交次數'
-                    }
-
-
-                }],
-            },
-            legend: {
-                display: !/Android|webOS|iPhone|iPad/i.test(navigator.userAgent),
-                labels: {
-                    boxWidth: 10,
-                },
-                position: 'right'
-
-            },
-            tooltips: {
-                backgroundColor: "rgb(255,255,255)",
-                bodyFontColor: "#858796",
-                titleMarginBottom: 10,
-                titleFontColor: '#6e707e',
-                titleFontSize: 14,
-                borderColor: '#dddfeb',
-                borderWidth: 1,
-                xPadding: 15,
-                yPadding: 15,
-                displayColors: false,
-                intersect: false,
-                mode: 'index',
-                caretPadding: 10,
-                callbacks: {
-                    title: function(tooltipItems, data) {
-                        return tooltipItems[0].xLabel.slice(5, tooltipItems[0].xLabel.length).replace('-', '/');;
-                    }
-                }
-            }
-        }
-
-    })
-    return LineChart;
-};
-
-function updateLineChart(data, labels, lineChart, hw_name) {
-    lineChart.data.labels = labels;
-    for (let i = 0; i < 5; i++) {
-        lineChart.data.datasets[i].data = data[i];
-        lineChart.data.datasets[i].label = hw_name[i];
-    }
-    lineChart.update();
-
-}
-
-function getIndex(arr) {
-    for (let i = 0; i < arr.length; i++) {
-        if (arr[i] != -1) {
-            var top = i
-            break
-        }
-    }
-    for (let i = arr.length - 1; i >= 0; i--) {
-        if (arr[i] != -1) {
-            var bottom = i
-            break
-        }
-    }
-    return [top, bottom]
-}
-
-function getLineChartData() {
-    return new Promise((resolve, reject) => {
-        chart_db.database().ref().on('value', snapshot => {
-            let snap = snapshot.val();
-            resolve(snap);
-        })
-    })
-}
-
-async function initializeLineChart() {
-    let submit_canvas = document.getElementById('submit_canvas');
-    let submit_dropdown = document.getElementById('submit_dropdown').getElementsByTagName('button');
-    let info = await getLineChartData();
-    let data_label = Object.keys(info)
-
-    let hw1_index = getIndex(Object.values(info['HW1-1']))
-    let hw1_data = []
-    let hw1_labels = Object.keys(info['HW1-1']).slice(hw1_index[0], hw1_index[1] + 1)
-    for (let j = 1; j < 6; j++) {
-        hw1_data.push(Object.values(info['HW1-' + j.toString()]).slice(hw1_index[0], hw1_index[1] + 1))
-    }
-    var lineChart = createLineChart(submit_canvas, hw1_labels, hw1_data, data_label.slice(0, 5))
-    for (let i = 0; i < HW_NO; i++) {
-        let data = []
-        let index = getIndex(Object.values(info['HW' + (i + 1).toString() + '-1']))
-        let labels = Object.keys(info['HW' + (i + 1).toString() + '-1']).slice(index[0], index[1] + 1)
-
-        for (let j = 1; j < 6; j++) {
-            data.push(Object.values(info['HW' + (i + 1).toString() + '-' + j.toString()]).slice(index[0], index[1] + 1))
-        }
-        submit_dropdown[i].onclick = function() {
-            document.getElementById('submit_dropdown').parentNode.getElementsByTagName('button')[0].textContent = 'HW' + (i + 1).toString()
-            updateLineChart(data, labels, lineChart, data_label.slice(i * 5, i * 5 + 5));
-            console.log(data)
-        }
-    }
-
-}
-initializeLineChart();
