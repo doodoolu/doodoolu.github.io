@@ -23,7 +23,7 @@
 
 </head>
 
-<body id="page-top">
+<body id="page-top" style="visibility: hidden;">
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -843,7 +843,7 @@
                                 </div>
 
                                 <div class="card-body">
-                                    <div class='chart-area'>
+                                    <div class='chart-area' style="height: 450px;">
                                         <canvas id="submit_canvas"></canvas>
                                     </div>
 
@@ -857,14 +857,7 @@
 
                     </div>
 
-
-
-
                     <div class="row">
-
-
-
-
                         <div class="col-lg-12 mb-4">
 
 
@@ -881,68 +874,7 @@
                             </div>
 
                         </div>
-                        <!--
-                        <div class="col-lg-12 mb-4">
 
-                            <div class="card shadow ">
-
-                                <div class="card-header  py-3 ">
-                                    <h6 class="m-0 font-weight-bold text-primary ">評價結果</h6>
-                                </div>
-
-                                <div class="card-body ">
-                                    <div class="row ">
-                                        <div class="col-lg-6 mb-4 ">
-                                            <div class="card mb-4 shadow mb-3" style=" min-height: 100%;">
-                                                <img id='rank_image' style="max-width: 100%; ">
-
-                                            </div>
-
-
-                                        </div>
-                                        <div class="col-lg-6 mb-4 ">
-                                            <div class="card mb-4 shadow mb-3" style=" min-height: 100%; ">
-                                                <div style="padding:1.25rem; ">
-                                                    <h1 id='rank_header' style="font-size: 4rem; white-space: pre-wrap;"></h1>
-                                                    <p id='rank_description' style="font-size: 2rem; white-space: wrap;">
-                                                    </p>
-
-                                                </div>
-                                            </div>
-
-
-                                        </div>
-                                        <div class="col-lg-12 mb-4 ">
-                                            <div class="row">
-                                                <div class="col-xl-12 col-lg-7">
-                                                    <div class="card shadow mb-3">
-                                                        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between ">
-                                                            <h6 class="m-0 font-weight-bold text-primary ">您的戰力指數</h6>
-                                                        </div>
-                                                        <div class="card-body" style="height: 50rem;">
-
-                                                            <div class="chart-area" style="min-height: 100%;">
-                                                                <canvas id="radar" style="max-width: 100%;"></canvas>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-
-                                            </div>
-
-
-
-
-
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                        -->
                     </div>
 
                 </div>
@@ -1054,7 +986,21 @@
         // Initialize Firebase
         var page_db = firebase.initializeApp(firebaseConfig5, 'Page');
     </script>
+    <script>
+        // Your web app's Firebase configuration
+        var firebaseConfig4 = {
+            apiKey: "AIzaSyDp8Dwa7HQK1B4f2B_olY4xsesYpstBJQw",
+            authDomain: "data-total-ac.firebaseapp.com",
+            databaseURL: "https://data-total-ac-default-rtdb.firebaseio.com",
+            projectId: "data-total-ac",
+            storageBucket: "data-total-ac.appspot.com",
+            messagingSenderId: "453473505899",
+            appId: "1:453473505899:web:9980ace523dadff20a972e"
+        };;
 
+        // Initialize Firebase
+        var chart_db = firebase.initializeApp(firebaseConfig4, 'Chart');
+    </script>
 
     <script src="js/index.js "></script>
 

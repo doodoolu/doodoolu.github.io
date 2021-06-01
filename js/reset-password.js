@@ -66,13 +66,7 @@ function checkPasswordValid() {
 
                     }
                 }
-
-
             }
-
-
-
-
         })
 }
 
