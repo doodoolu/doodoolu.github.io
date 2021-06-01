@@ -10024,6 +10024,9 @@ a.text-yellow:focus {
 .text-color4 {
     color: #F8961E !important;
 }
+.text-color4-1 {
+    color: #D4BAAD !important;
+}
 
 .text-color5 {
     color: #AD8871 !important;
@@ -10457,6 +10460,10 @@ border-left-primary {
 }
 
 .border-left-color4 {
+    border-left: 0.25rem solid #D4BAAD;
+}
+
+.border-left-color4-1 {
     border-left: 0.25rem solid #D4BAAD;
 }
 
