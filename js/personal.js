@@ -32,7 +32,7 @@ function initializeBoxes() {
         max_interval.textContent = (parseInt(interval_time[1]) * 24 + parseInt(interval_time[3]) +
                 parseFloat(interval_time[4]) / 60 + parseFloat(interval_time[5]) / 3600).toFixed(0).toString() + ' hours ' // + interval_time[4] + ' minute(s) ' + interval_time[5] + ' second(s)'
         let ac_hour = (user_info['best_working_time'].match(/(\d+),\s(\d+)/))
-        ac_rate_max.textContent = ('0' + ac_hour[1]).slice(-2) + ':00 ~ ' + ('0' + ac_hour[2].slice(-2)) + ':00'
+        ac_rate_max.textContent = ('0' + ac_hour[1]).slice(-2) + ':00 ~ ' + ('0' + ac_hour[2]).slice(-2) + ':00'
         let submit_hour = user_info['most_submission_period'].match(/(\d+),\s(\d+)/)
         most_submit_times.textContent = ('0' + submit_hour[1]).slice(-2) + ':00 ~ ' + ('0' + submit_hour[2]).slice(-2) + ':00'
         let sum_debug = 0;
@@ -135,17 +135,15 @@ function initalizeRadarChart() {
         radar_db.database().ref().on('value', snapshot => {
             let snap = snapshot.val()
             let user_info = snap[user]
-            let labels = ['精確度', '難題大師', '完成度', '細心度', '效率']
+            let labels = ['精確度', '細心度', '難題大師', '完成度', '效率']
             let data = Object.values(user_info)
-            let multiplier = [1, 0.8, 1.2, 1.2, 0.8]
             let data_weighted = []
+            console.log(data)
             for (let i = 0; i < 5; i++) {
                 data[i] = ((1 - parseFloat(data[i])) * 100)
-                data_weighted.push(data[i] * multiplier[i])
-
             }
             createRadarChart(ctx, labels, data)
-            resolve(data_weighted.reduce((a, b) => parseFloat(a) + parseFloat(b), 0))
+            resolve(data.reduce((a, b) => parseFloat(a) + parseFloat(b), 0))
         })
     })
 }
@@ -160,7 +158,7 @@ async function displayRank() {
         description.style.fontSize = '1rem';
     }
 
-    if (total_score >= 400) {
+    if (total_score >= 350) {
         img.setAttribute('src', './img/dynamax_charizard.png')
         header.textContent = '你是...\n超極巨化噴火龍！'
         description.textContent = '挖挖挖挖靠！是超極巨化噴火龍欸，同學你是天才吧～可以跟我說你都吃什麼長大的嗎?'
@@ -171,7 +169,7 @@ async function displayRank() {
         header.textContent = '你是...\nMega噴火龍！'
         description.textContent = '挖賽！是Mega噴火龍欸，同學你是第一次學程式嗎？作業不可能難倒你吧'
 
-    } else if (total_score >= 200) {
+    } else if (total_score >= 250) {
         img.setAttribute('src', './img/charizard.png')
         header.textContent = '你是...噴火龍！'
         description.textContent = '挖～是噴火龍欸，同學不用謙虛，你已經掌握到Python的精隨了～'
@@ -287,7 +285,7 @@ async function initializeBarChart() {
         labels.push('HW ' + (i + 1).toString())
     }
     let barChart = createBarChart(ctx, labels, data_all)
-    try_name.textContent = '所有問題';
+    try_name.textContent = '所有題目';
 
     let dropdown = document.getElementById('try_dropdown');
     let questions = dropdown.getElementsByTagName('button')
@@ -301,7 +299,11 @@ async function initializeBarChart() {
         } else {
             questions[i].onclick = function() {
                 try_name.textContent = 'HW' + i.toString();
-                let labels_q = ['Q1', 'Q2', 'Q3', 'Q4', 'Q5'];
+                let labels_q = [];
+                for (let j = 1; j < 6; j++) {
+                    labels_q.push('HW ' + i.toString() + '-' + j.toString())
+
+                }
                 updateBarChart(data[i - 1], labels_q, barChart);
             }
         }
@@ -333,7 +335,7 @@ async function initializeProgressBar() {
     for (let i = 0; i < HW_NO; i++) {
         progress_bar[i].style.width = user_percent['HW' + (i + 1).toString() + ' Total Score'].toString() + '%';
         progress_percentage[i].textContent = user_percent['HW' + (i + 1).toString() + ' Total Score'].toString() + '分'
-        hw_name[i].childNodes[0].textContent = 'HW' + (i + 1).toString();
+        hw_name[i].childNodes[0].textContent = 'HW ' + (i + 1).toString();
 
     }
     for (let i = 0; i < progress_dropdown.length; i++) {
@@ -363,7 +365,7 @@ async function initializeProgressBar() {
                     progress_bar[j].style.width = user_percent['HW' + (j + 1).toString() + ' Total Score'].toString() + '%'
                     progress_percentage[j].textContent = user_percent['HW' + (j + 1).toString() + ' Total Score'].toString() + '分'
                     dropdown_button_name.textContent = '所有題目';
-                    hw_name[j].childNodes[0].textContent = 'HW' + (j + 1).toString();
+                    hw_name[j].childNodes[0].textContent = 'HW ' + (j + 1).toString();
 
                 }
             }
@@ -382,7 +384,7 @@ async function initializeProgressBar() {
                     progress_bar[j].style.width = (user_percent['HW' + (i).toString() + '-' + (j + 1).toString()] * 5).toString() + '%';
                     progress_percentage[j].textContent = user_percent['HW' + (i).toString() + '-' + (j + 1).toString()].toString() + '分'
                     dropdown_button_name.textContent = 'HW ' + i.toString();
-                    hw_name[j].childNodes[0].textContent = 'Problem ' + i.toString() + '-' + (j + 1).toString();
+                    hw_name[j].childNodes[0].textContent = 'HW ' + i.toString() + '-' + (j + 1).toString();
 
                 }
             }

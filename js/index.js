@@ -136,7 +136,7 @@ async function initalizeCharts() {
                     updateDoughnutChart(ctx, 'PWS Homework ' + (i + 1).toString(), charts[i])
 
                 } else {
-                    updateDoughnutChart(ctx, 'HW' + (i + 1).toString() + '-' + questions[j].textContent.slice(-1), charts[i])
+                    updateDoughnutChart(ctx, 'HW ' + (i + 1).toString() + '-' + questions[j].textContent.slice(-1), charts[i])
 
                 }
             }
@@ -159,40 +159,42 @@ function createMultiChart(ctx, labels, data) {
                     fill: false,
                     lineTension: 0,
                     borderColor: "#43AA8B",
+                    backgroundColor: "#43AA8B",
                     pointRadius: 3,
-
                     pointHoverRadius: 5,
                     pointHitRadius: 10,
                     pointBorderWidth: 2,
-                    data: data[0]
+                    data: data[0],
                 },
                 {
                     label: 'AC次數',
+                    type: 'bar',
                     barPercentage: 0.8,
                     yAxisID: 'A',
                     backgroundColor: '#F94144',
-                    borderColor: "rgba(78, 115, 223, 1)",
+                    borderColor: "#F94144",
                     pointRadius: 3,
                     pointBackgroundColor: "rgba(78, 115, 223, 1)",
                     pointBorderColor: "rgba(78, 115, 223, 1)",
                     pointHoverRadius: 3,
                     pointHitRadius: 10,
                     pointBorderWidth: 2,
-                    data: data[1]
+                    data: data[1],
                 },
                 {
                     label: 'WA次數',
+                    type: 'bar',
                     barPercentage: 0.8,
                     yAxisID: 'A',
                     backgroundColor: '#F9C74F',
-                    borderColor: "rgba(78, 115, 223, 1)",
+                    borderColor: "#F9C74F",
                     pointRadius: 3,
                     pointBackgroundColor: "rgba(78, 115, 223, 1)",
                     pointBorderColor: "rgba(78, 115, 223, 1)",
                     pointHoverRadius: 3,
                     pointHitRadius: 10,
                     pointBorderWidth: 2,
-                    data: data[2]
+                    data: data[2],
                 },
             ],
         },
@@ -253,7 +255,9 @@ function createMultiChart(ctx, labels, data) {
                 }],
             },
             legend: {
-                display: false
+                display: !/Android|webOS|iPhone|iPad/i.test(navigator.userAgent),
+                position: 'right',
+                labels: { usePointStyle: true }
             },
             tooltips: {
                 backgroundColor: "rgb(255,255,255)",
@@ -455,7 +459,7 @@ function createLineChart(ctx, labels, data, data_label) {
                         return tooltipItems[0].xLabel.slice(5, tooltipItems[0].xLabel.length).replace('-', '/');
                     },
                     label: function(tooltipItem, data) {
-                        return data.datasets[tooltipItem.datasetIndex].label + ': ' + tooltipItem.yLabel + '次'
+                        return data.datasets[tooltipItem.datasetIndex].label.slice(0, 2) + ' ' + data.datasets[tooltipItem.datasetIndex].label.slice(2) + ': ' + tooltipItem.yLabel + '次'
                     }
                 }
             }
