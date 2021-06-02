@@ -537,3 +537,8 @@ async function initializeLineChart() {
     }
 }
 initializeLineChart();
+
+var gslides = document.getElementById('google_slides');
+gslides.onclick = function() {
+    alert('滑鼠左鍵可下一頁\n鍵盤左右鍵可上/下一頁\nCtrl+Shift+F 可全螢幕播放')
+}
