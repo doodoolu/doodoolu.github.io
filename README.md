@@ -5,7 +5,7 @@
 ## 簡述
 本專案希望建立一個較為完整的學生數據分析系統，用以分析PWS 109-2的修課學生能力，並同時架設網站以視覺化的方式供同學自行查閱自己的學習狀況。
 
-本專案使用[Selenium](https://www.selenium.dev/)擷取[ccClub Judge](https://judge.ccclub.io/) PWS 109-2 Homework 1~6的資料，並以[Pandas模組](https://pandas.pydata.org/)進行資料處理，將處理結果存入[Google Firebase](https://firebase.google.com/)的Realtime Database中，再以HTML5, CSS5, Javascript呈現
+本專案使用[Selenium](https://www.selenium.dev/)擷取[ccClub Judge](https://judge.ccclub.io/) PWS 109-2 Homework 1~6的資料，並以[Pandas模組](https://pandas.pydata.org/)進行資料處理，將處理結果存入[Google Firebase](https://firebase.google.com/)的Realtime Database中，再以HTML5, CSS5, JavaScript呈現
 
 本網站僅PWS 109-2修課師生方可登入，資料僅用作學術用途
 
