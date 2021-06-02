@@ -257,7 +257,10 @@ function createMultiChart(ctx, labels, data) {
             legend: {
                 display: !/Android|webOS|iPhone|iPad/i.test(navigator.userAgent),
                 position: 'right',
-                labels: { usePointStyle: true }
+                labels: {
+                    usePointStyle: true,
+                    boxWidth: 6
+                }
             },
             tooltips: {
                 backgroundColor: "rgb(255,255,255)",
