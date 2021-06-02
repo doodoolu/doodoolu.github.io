@@ -138,7 +138,6 @@ function initalizeRadarChart() {
             let labels = ['精確度', '細心度', '難題大師', '完成度', '效率']
             let data = Object.values(user_info)
             let data_weighted = []
-            console.log(data)
             for (let i = 0; i < 5; i++) {
                 data[i] = ((1 - parseFloat(data[i])) * 100)
             }
@@ -292,7 +291,7 @@ async function initializeBarChart() {
     for (let i = 0; i < questions.length; i++) {
         if (i == 0) {
             questions[i].onclick = function() {
-                try_name.textContent = '所有問題';
+                try_name.textContent = '所有題目';
 
                 updateBarChart(data_all, labels, barChart)
             }

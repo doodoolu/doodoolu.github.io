@@ -136,7 +136,7 @@ async function initalizeCharts() {
                     updateDoughnutChart(ctx, 'PWS Homework ' + (i + 1).toString(), charts[i])
 
                 } else {
-                    updateDoughnutChart(ctx, 'HW ' + (i + 1).toString() + '-' + questions[j].textContent.slice(-1), charts[i])
+                    updateDoughnutChart(ctx, 'HW' + (i + 1).toString() + '-' + questions[j].textContent.slice(-1), charts[i])
 
                 }
             }
